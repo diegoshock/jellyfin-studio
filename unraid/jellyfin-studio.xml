@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>Jellyfin-Studio</Name>
+  <Repository>ghcr.io/diegoshock/jellyfin-studio:latest</Repository>
+  <Registry>https://ghcr.io/diegoshock/jellyfin-studio</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Shell>bash</Shell>
+  <Project>https://github.com/diegoshock/jellyfin-studio</Project>
+  <Support>https://github.com/diegoshock/jellyfin-studio/issues</Support>
+  <ReadMe>https://github.com/diegoshock/jellyfin-studio/blob/main/unraid/README.md</ReadMe>
+  <Overview>Jellyfin Studio: servidor Jellyfin con interfaz moderna y acentos granate. Utiliza una carpeta appdata independiente para las pruebas. La imagen GHCR requiere que el workflow de publicación haya terminado; como alternativa, construye jellyfin-studio:local y cambia Repository por ese nombre.</Overview>
+  <Category>MediaApp:Video MediaServer:Video</Category>
+  <WebUI>http://[IP]:[PORT:8096]/web/</WebUI>
+  <Icon>https://raw.githubusercontent.com/diegoshock/jellyfin-studio/main/unraid/jellyfin-studio.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/diegoshock/jellyfin-studio/main/unraid/jellyfin-studio.xml</TemplateURL>
+  <ExtraParams>--user=99:100</ExtraParams>
+  <PostArgs/>
+  <Config Name="Web UI" Target="8096" Default="8097" Mode="tcp" Description="Puerto de pruebas en Unraid. No interfiere con un Jellyfin existente en 8096." Type="Port" Display="always" Required="true" Mask="false">8097</Config>
+  <Config Name="Configuración" Target="/config" Default="/mnt/user/appdata/jellyfin-studio/config" Mode="rw" Description="Datos exclusivos de Studio. Preparar con propietario 99:100." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/jellyfin-studio/config</Config>
+  <Config Name="Caché" Target="/cache" Default="/mnt/user/appdata/jellyfin-studio/cache" Mode="rw" Description="Caché y transcodificación. Preparar con propietario 99:100." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/jellyfin-studio/cache</Config>
+  <Config Name="Biblioteca multimedia" Target="/media" Default="/mnt/user/media" Mode="ro" Description="Cambia la ruta por tu biblioteca real. Montaje de solo lectura para pruebas." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/media</Config>
+  <Config Name="Zona horaria" Target="TZ" Default="America/Santiago" Mode="" Description="Zona horaria del servidor." Type="Variable" Display="always" Required="false" Mask="false">America/Santiago</Config>
+</Container>

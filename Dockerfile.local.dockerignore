@@ -1,0 +1,8 @@
+**
+!Dockerfile.local
+!.local
+!.local/publish
+!.local/publish/**
+!web
+!web/dist
+!web/dist/**

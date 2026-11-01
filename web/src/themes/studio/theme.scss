@@ -1,0 +1,290 @@
+@use "../dark/theme";
+
+/* Studio keeps the upstream layouts, playback controls and TV navigation. */
+html {
+    --studio-accent: #8e203b;
+    --studio-highlight: #f39aaa;
+    --studio-surface: #141518;
+    --studio-border: rgba(255, 255, 255, 0.09);
+
+    color: #f4f1f2;
+    background-color: #090b0e;
+}
+
+.backgroundContainer,
+.dialog,
+.mainDrawer,
+.nowPlayingPlaylist,
+.nowPlayingContextMenu {
+    background-color: #090b0e;
+}
+
+.backgroundContainer.withBackdrop {
+    background: linear-gradient(180deg, rgba(9, 11, 14, 0.28), #090b0e 85%);
+}
+
+.pageTitleWithDefaultLogo {
+    background-image: none;
+    background-color: var(--studio-accent);
+    mask: url(@jellyfin/ux-web/banner-light.png) center / contain no-repeat;
+}
+
+.layout-tv .pageTitleWithDefaultLogo {
+    background-image: none;
+    mask-image: url(@jellyfin/ux-web/icon-transparent.png);
+}
+
+.splashLogo {
+    background-image: none;
+    background-color: var(--studio-accent);
+    mask: url(@jellyfin/ux-web/icon-transparent.png) center / contain no-repeat;
+}
+
+.studioServerLogo {
+    background-color: var(--studio-accent);
+    mask: url(@jellyfin/ux-web/icon-transparent.png) center / contain no-repeat;
+}
+
+.studioServerLogo img {
+    opacity: 0;
+}
+
+.manualLoginForm {
+    box-sizing: border-box;
+    padding: 2em;
+    background: var(--studio-surface);
+    border: 1px solid var(--studio-border);
+    border-radius: 1em;
+}
+
+.skinHeader-withBackground,
+.appfooter,
+.paperList,
+.visualCardBox,
+.collapseContent,
+.formDialogHeader:not(.formDialogHeader-clear),
+.formDialogFooter:not(.formDialogFooter-clear) {
+    background-color: var(--studio-surface);
+}
+
+.layout-desktop .skinHeader.semiTransparent {
+    backdrop-filter: blur(20px) !important;
+    background-color: rgba(9, 11, 14, 0.78);
+    border-bottom: 1px solid var(--studio-border);
+}
+
+.cardContent,
+.cardOverlayContainer,
+.cardImageContainer {
+    border-radius: 0.4em;
+}
+
+.cardText {
+    padding-top: 0.4em;
+}
+
+.defaultCardBackground1 {
+    background-color: #351722;
+}
+
+.defaultCardBackground2 {
+    background-color: #592237;
+}
+
+.defaultCardBackground3 {
+    background-color: #8e203b;
+}
+
+.defaultCardBackground4 {
+    background-color: #24151c;
+}
+
+.defaultCardBackground5 {
+    background-color: #703047;
+}
+
+.cardText-secondary,
+.secondaryText,
+.fieldDescription {
+    color: #aaa4a8;
+}
+
+.sectionTitle {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.raised,
+.paperList,
+.dialog {
+    border-radius: 0.65em;
+}
+
+.emby-input,
+.emby-textarea,
+.emby-select-withcolor {
+    background: var(--studio-surface);
+    border-color: #3c3439;
+    border-radius: 0.6em;
+}
+
+.emby-input:focus,
+.emby-textarea:focus {
+    border-color: var(--studio-highlight);
+}
+
+.button-submit,
+.navMenuOption-selected,
+.emby-button.show-focus:focus {
+    color: #fff;
+    background: var(--studio-accent) !important;
+}
+
+.button-submit:focus,
+.button-submit:hover {
+    color: #fff;
+    background: #ad2b4b !important;
+}
+
+.itemProgressBarForeground,
+.playedIndicator,
+.countIndicator {
+    color: #fff;
+    background: var(--studio-accent);
+}
+
+.button-link,
+.inputLabelFocused,
+.selectLabelFocused,
+.textareaLabelFocused,
+.button-flat:hover,
+.metadataSidebarIcon,
+.emby-tab-button:hover,
+.emby-tab-button.show-focus:focus {
+    color: var(--studio-highlight);
+}
+
+.emby-select-withcolor:focus,
+.emby-checkbox:checked + span + .checkboxOutline {
+    border-color: var(--studio-highlight) !important;
+}
+
+.emby-checkbox:checked + span + .checkboxOutline,
+.fullSyncIndicator,
+.mediaSourceIndicator,
+.selectionCommandsPanel,
+.emby-button.detailFloatingButton {
+    color: #fff;
+    background: var(--studio-accent);
+}
+
+.emby-checkbox:focus:not(:checked) + span + .checkboxOutline {
+    border-color: var(--studio-highlight) !important;
+}
+
+.card:focus .cardBox.visualCardBox,
+.card:focus .cardBox:not(.visualCardBox) .cardScalable {
+    border-color: var(--studio-highlight) !important;
+}
+
+.progressring-spiner {
+    border-color: var(--studio-highlight);
+}
+
+.paper-icon-button-light:active:not(:disabled) {
+    color: var(--studio-highlight);
+    background-color: rgba(142, 32, 59, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .paper-icon-button-light:hover:not(:disabled) {
+        color: var(--studio-highlight);
+        background-color: rgba(142, 32, 59, 0.2);
+    }
+}
+
+.navMenuOption {
+    border-radius: 0.65em;
+}
+
+/* Compact glass navigation and quiet controls, inspired by the supplied references. */
+.layout-desktop .headerTabs .emby-tabs-slider,
+.layout-mobile .headerTabs .emby-tabs-slider {
+    display: inline-flex;
+    padding: 0.25em;
+    background: rgba(9, 11, 14, 0.75);
+    border: 1px solid var(--studio-border);
+    border-radius: 2em;
+}
+
+.headerTabs .emby-tab-button {
+    padding: 0.65em 1.25em;
+    color: #aaa4a8;
+    border-radius: 2em;
+}
+
+.headerTabs .emby-tab-button-active {
+    color: #fff;
+    background: rgba(142, 32, 59, 0.42);
+    box-shadow: inset 0 0 0 1px rgba(243, 154, 170, 0.22);
+}
+
+.headerTabs .emby-tab-button:hover,
+.headerTabs .emby-tab-button.show-focus:focus {
+    color: var(--studio-highlight);
+}
+
+.raised:not(.button-submit):not(.button-delete) {
+    background: #1c1c20;
+    border: 1px solid var(--studio-border);
+}
+
+.layout-desktop .headerRight .paper-icon-button-light {
+    margin: 0 0.2em;
+    border: 1px solid var(--studio-border);
+    border-radius: 50%;
+}
+
+.wizardContent {
+    background: linear-gradient(140deg, #1c1318, #111215 65%);
+    border: 1px solid var(--studio-border);
+    border-radius: 1em;
+}
+
+.wizardStartForm {
+    background: transparent;
+}
+
+.layout-desktop .detailRibbon {
+    background: linear-gradient(180deg, transparent, rgba(9, 11, 14, 0.92));
+}
+
+.noBackdropTransparency .detailPagePrimaryContainer,
+.detailPageSecondaryContainer {
+    background-color: #090b0e;
+}
+
+.itemProgressBar {
+    height: 3px;
+    border-radius: 3px;
+}
+
+/* Keep keyboard focus visible without changing remote-control hit targets. */
+.emby-button:focus-visible,
+.card:focus-visible,
+.emby-input:focus-visible,
+.emby-select:focus-visible {
+    outline: 2px solid var(--studio-highlight);
+    outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cardScalable {
+        transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card:hover .cardScalable {
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+        transform: translateY(-3px);
+    }
+}

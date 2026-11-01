@@ -1,0 +1,10 @@
+.git
+**/.git
+**/node_modules
+**/bin
+**/obj
+**/dist
+.local
+**/.env
+**/.env.*
+*.log

@@ -1,0 +1,299 @@
+.studioHeroHost {
+    display: none;
+}
+
+[data-theme="studio"] .studioHeroHost {
+    display: block;
+}
+
+.studioHero,
+.studioHeroSkeleton {
+    position: relative;
+    box-sizing: border-box;
+    min-height: 32rem;
+    margin: 0 3.3% 2rem;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 80% 20%, #64213b, transparent 65%), #161218;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.25rem;
+}
+
+.studioHero-art {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.studioHero::after {
+    position: absolute;
+    z-index: 0;
+    background: linear-gradient(90deg, rgba(9, 11, 14, 0.96), rgba(9, 11, 14, 0.55) 50%, rgba(9, 11, 14, 0.1)), linear-gradient(0deg, #090b0e, transparent 60%);
+    content: "";
+    inset: 0;
+}
+
+.studioHero-content {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    min-height: 32rem;
+    max-width: 48rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3rem 4rem 4rem;
+}
+
+.studioHero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #f39aaa;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.studioHero-marker {
+    width: 0.45rem;
+    height: 0.45rem;
+    background: #b93659;
+    border-radius: 50%;
+    box-shadow: 0 0 1rem rgba(185, 54, 89, 0.6);
+}
+
+.studioHero-title {
+    margin: 0.35rem 0 1rem;
+    font-size: clamp(2rem, 4.3vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+}
+
+.studioHero-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    color: #c6c0c4;
+    font-size: 0.85rem;
+}
+
+.studioHero-rating {
+    color: #f4c275;
+}
+
+.studioHero-certificate {
+    padding: 0.1rem 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.25rem;
+}
+
+.studioHero-overview {
+    max-width: 36rem;
+    max-height: 5.1em;
+    margin: 1rem 0 0;
+    overflow: hidden;
+    color: #d5cfd2;
+    line-height: 1.7;
+}
+
+.studioHero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+}
+
+.studioAction {
+    box-sizing: border-box;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.5rem;
+    color: #fff;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.7rem;
+}
+
+.studioAction-primary {
+    background: #8e203b;
+}
+
+.studioAction-primary:hover {
+    background: #ad2b4b;
+}
+
+.studioAction-primary:disabled {
+    cursor: progress;
+    opacity: 0.6;
+}
+
+.studioAction-secondary {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.studioAction-secondary:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.studioHero-carousel {
+    position: absolute;
+    z-index: 1;
+    right: 2rem;
+    bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.studioHero-arrow {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(9, 11, 14, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+}
+
+.studioHero-pages {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.studioHero-page {
+    position: relative;
+    width: 2rem;
+    height: 2.75rem;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.studioHero-page::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 3px;
+    content: "";
+}
+
+.studioHero-page[aria-pressed="true"]::after {
+    background: #f39aaa;
+}
+
+.studioAction:focus-visible,
+.studioHero-arrow:focus-visible,
+.studioHero-page:focus-visible {
+    outline: 2px solid #f39aaa;
+    outline-offset: 4px;
+}
+
+.studioHero-playError,
+.studioSpotlightError {
+    color: #f39aaa;
+}
+
+.studioSpotlightError {
+    margin: 1.5rem 3.3%;
+}
+
+[data-theme="studio"] .studioHome .sectionTitle {
+    font-size: 1.25rem;
+    letter-spacing: -0.035em;
+}
+
+[data-theme="studio"] .studioHome .cardText {
+    text-align: start;
+}
+
+[data-theme="studio"] .studioHome .verticalSection {
+    margin-bottom: 2.25rem;
+}
+
+[data-theme="studio"] .studioHome .emby-scroller {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+[data-theme="studio"] .studioHome .emby-scroller:not(.scrollX) {
+    overflow: hidden;
+}
+
+[data-theme="studio"] .studioHome .homeLibraryButton {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1.25rem;
+    background: #141518;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+}
+
+[data-theme="studio"] .studioHome .homeLibraryIcon {
+    color: #f39aaa;
+    font-size: 1.4rem;
+}
+
+@media (min-width: 1000px) {
+    [data-theme="studio"].layout-desktop .headerTop {
+        min-height: 3rem;
+    }
+
+    [data-theme="studio"].layout-desktop .headerTabs {
+        position: absolute;
+        top: 0.55rem;
+        left: 17rem;
+        width: auto;
+        margin: 0;
+    }
+
+    [data-theme="studio"].layout-desktop .homePage.pageWithAbsoluteTabs {
+        padding-top: 5.2rem !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .studioHero,
+    .studioHeroSkeleton {
+        min-height: 30rem;
+        margin: 0 4% 1.5rem;
+        border-radius: 0.9rem;
+    }
+
+    .studioHero-content {
+        min-height: 30rem;
+        justify-content: flex-end;
+        padding: 5rem 1.4rem 5rem;
+    }
+
+    .studioHero::after {
+        background: linear-gradient(0deg, #090b0e 5%, rgba(9, 11, 14, 0.75) 60%, rgba(9, 11, 14, 0.1));
+    }
+
+    .studioHero-carousel {
+        right: 1rem;
+        bottom: 0.8rem;
+    }
+}
