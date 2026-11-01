@@ -25,6 +25,8 @@ The same storage manager is used by React islands in `web/src/utils/reactUtils.t
 Header, loading and dashboard logos use the original `@jellyfin/ux-web` artwork
 as a CSS mask in burgundy, preserving the Jellyfin silhouette. Player sliders
 read Studio's accent variables, with upstream colors as fallbacks for other themes.
+The logo artwork remains under CC-BY-SA-4.0; see `unraid/LOGO-LICENSE.md` for
+attribution and the color modification notice.
 
 The modern home spotlight in `web/src/components/studio/` is mounted by
 `web/src/controllers/hometab.js`. It queries the current user's latest movies

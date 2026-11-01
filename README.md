@@ -93,3 +93,4 @@ actualización. Se conservan las licencias originales en
 [server/LICENSE](server/LICENSE) y [web/LICENSE](web/LICENSE).
 Este proyecto es un derivado independiente de Jellyfin.
 Jellyfin Studio se distribuye bajo GPL-2.0-or-later; consulta [LICENSE](LICENSE).
+El logo conserva su licencia [CC-BY-SA-4.0](unraid/LOGO-LICENSE.md).
