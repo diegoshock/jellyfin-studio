@@ -13,7 +13,7 @@ type WidgetProps = {
 
 const Widget = ({ title, href, children }: WidgetProps) => {
     return (
-        <Box>
+        <Box className='studioAdminWidget'>
             <Button
                 component={RouterLink}
                 to={href}
@@ -30,7 +30,7 @@ const Widget = ({ title, href, children }: WidgetProps) => {
                 </Typography>
             </Button>
 
-            {children}
+            <Box className='studioAdminWidget-body'>{children}</Box>
         </Box>
     );
 };

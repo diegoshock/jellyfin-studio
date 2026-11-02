@@ -61,3 +61,11 @@ Si se reinicia Jellyfin después de crear la cuenta administradora, la protecci�
 - El acceso de este entorno a TMDb no está habilitado: se comprobó la respuesta 503 y el estado recuperable del cliente. La consulta de estrenos reales debe verificarse desde una instalación con acceso a TMDb.
 
 Las capturas de `docs/screenshots/` muestran datos sintéticos de prueba. Esos archivos multimedia y las cuentas de validación no se incluyen en la imagen distribuida ni se crean en instalaciones normales.
+
+## Administración unificada
+
+Administración utiliza ahora el mismo tema Studio que Inicio, el asistente y Salud. El menú se organiza en Vista general, Biblioteca, Personas, Tu servidor y Avanzado, conservando los accesos a opciones de biblioteca, reproducción y páginas de plugins. Las sesiones inactivas tienen tarjetas compactas; las sesiones en reproducción conservan su imagen, progreso y controles. Actividad y Rutas usan paneles con tipografía y espaciado reducidos. Las advertencias de almacenamiento conservan sus colores de estado.
+
+Inicio elimina el espacio reservado bajo la barra transparente: el fondo comienza en el borde superior y ocupa la ventana. En móvil, la búsqueda del menú de administración permanece abierta mientras se escribe y el menú se cierra al elegir un destino.
+
+Verificación adicional: Inicio comprobado en 1600×1000 y 390×844, con origen `(0, 0)` y ancho completo; 12 pantallas administrativas sin desbordamiento horizontal ni errores de JavaScript; dispositivos inactivos reducidos a aproximadamente 147 px; 180 pruebas web aprobadas. Capturas actualizadas en `docs/screenshots/administracion.png`, `administracion-ajustes.png` y `administracion-movil.png`.

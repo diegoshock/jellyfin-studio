@@ -76,6 +76,7 @@ const OffsetAppBar: FC<PropsWithChildren<OffsetAppBarProps>> = ({
             {/* Spacer to prevent content rendering under the AppBar */}
             <div
                 aria-hidden='true'
+                className='appBarSpacer'
                 style={{
                     height,
                     width: '100%',

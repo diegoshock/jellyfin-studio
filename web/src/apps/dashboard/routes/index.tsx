@@ -105,8 +105,8 @@ export const Component = () => {
                 confirmButtonText={globalize.translate('ButtonShutdown')}
                 confirmButtonColor='error'
             />
-            <Box className='content-primary'>
-                <Grid container spacing={3}>
+            <Box className='content-primary studioDashboardOverview'>
+                <Grid container spacing={3} className='studioDashboardGrid'>
                     <Grid item xs={12} md={7} lg={7} xl={6}>
                         <Stack spacing={3}>
                             <ServerInfoWidget

@@ -22,6 +22,7 @@ export const Component = () => {
     const [ isDrawerActive, setIsDrawerActive ] = useState(false);
     const { user } = useApi();
     const location = useLocation();
+    const isHomeSpotlight = location.pathname === '/home' && (new URLSearchParams(location.search).get('tab') || '0') === '0';
 
     const isMediumScreen = useMediaQuery((t: Theme) => t.breakpoints.up('md'));
     const isDrawerAvailable = isDrawerPath(location.pathname) && Boolean(user) && !isMediumScreen;
@@ -34,7 +35,7 @@ export const Component = () => {
     return (
         <LibraryProvider>
             <Box
-                className='modernAppLayout'
+                className={`modernAppLayout${isHomeSpotlight ? ' studioHomeLayout' : ''}`}
                 sx={{
                     position: 'relative',
                     display: 'flex',

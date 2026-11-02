@@ -44,15 +44,17 @@ export const Component: FC = () => {
     // Update body class
     useEffect(() => {
         document.body.classList.add('dashboardDocument');
+        document.body.classList.toggle('studioAdminDocument', theme === 'studio');
 
         return () => {
-            document.body.classList.remove('dashboardDocument');
+            document.body.classList.remove('dashboardDocument', 'studioAdminDocument');
         };
-    }, []);
+    }, [theme]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={dateFnsLocale}>
             <Box
+                className={theme === 'studio' ? 'studioAdmin' : undefined}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -115,7 +117,7 @@ export const Component: FC = () => {
                     </AppBody>
                 </Box>
             </Box>
-            <ThemeCss dashboard />
+            <ThemeCss dashboard={theme !== 'studio'} />
         </LocalizationProvider>
     );
 };

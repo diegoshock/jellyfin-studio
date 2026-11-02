@@ -30,6 +30,8 @@ Captura real de Studio con una biblioteca sintética de demostración:
 
 [Versión móvil](docs/screenshots/movil.png) · [Explorar](docs/screenshots/explorar.png) · [Ficha](docs/screenshots/pelicula.png)
 
+[Administración](docs/screenshots/administracion.png) · [Ajustes](docs/screenshots/administracion-ajustes.png) · [Administración móvil](docs/screenshots/administracion-movil.png)
+
 [Avatar del onboarding](docs/screenshots/onboarding-avatar.png) · [Resumen final](docs/screenshots/onboarding-final.png) · [Salud](docs/screenshots/salud.png)
 
 Los vídeos y carátulas de prueba de las capturas no están incluidos en la imagen.

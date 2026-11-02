@@ -29,7 +29,7 @@ const ActivityListItem = ({ item, displayShortOverview, to }: ActivityListItemPr
     }, [ item ]);
 
     return (
-        <ListItem disablePadding>
+        <ListItem disablePadding className='studioActivityEntry' data-severity={item.Severity || LogLevel.Information}>
             <ListItemLink to={to}>
                 <ListItemAvatar>
                     <Avatar sx={{ bgcolor: getLogLevelColor(item.Severity || LogLevel.Information) + '.main' }}>

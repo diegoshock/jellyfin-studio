@@ -10,8 +10,8 @@
 .studioHeroSkeleton {
     position: relative;
     box-sizing: border-box;
-    min-height: 42rem;
-    margin: -4rem 0 0;
+    min-height: max(42rem, 100svh);
+    margin: 0;
     overflow: hidden;
     background: radial-gradient(ellipse at 80% 20%, #64213b, transparent 65%), #161218;
     border: 0;
@@ -39,7 +39,7 @@
     z-index: 1;
     box-sizing: border-box;
     display: flex;
-    min-height: 42rem;
+    min-height: max(42rem, 100svh);
     max-width: 56rem;
     flex-direction: column;
     align-items: flex-start;
@@ -264,7 +264,7 @@
 }
 
 [data-theme="studio"] .modernAppLayout .homePage.libraryPage.pageWithAbsoluteTabs {
-    padding-top: 1rem !important;
+    padding-top: 0 !important;
 }
 
 @media (min-width: 1000px) {
@@ -301,13 +301,13 @@
 
     .studioHero,
     .studioHeroSkeleton {
-        min-height: 36rem;
-        margin: -4rem 0 0;
+        min-height: max(36rem, 100svh);
+        margin: 0;
         border-radius: 0;
     }
 
     .studioHero-content {
-        min-height: 36rem;
+        min-height: max(36rem, 100svh);
         justify-content: flex-end;
         padding: 8rem 5% 5rem;
     }
@@ -320,4 +320,12 @@
         right: 1rem;
         bottom: 0.8rem;
     }
+}
+
+[data-theme="studio"] .studioHomeLayout:has(.studioHero, .studioHeroSkeleton) > .appBarSpacer {
+    height: 0 !important;
+}
+
+[data-theme="studio"] .studioHomeLayout .homePage.pageWithAbsoluteTabs {
+    padding-top: 0 !important;
 }

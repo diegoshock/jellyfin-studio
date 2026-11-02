@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import React, { type FC, type PropsWithChildren } from 'react';
+import React, { type FC, type PropsWithChildren, useCallback } from 'react';
 
 import browser from 'scripts/browser';
 
@@ -22,6 +22,10 @@ const ResponsiveDrawer: FC<PropsWithChildren<ResponsiveDrawerProps>> = ({
     onOpen
 }) => {
     const isMediumScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+
+    const onNavigationClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+        if ((event.target as HTMLElement).closest('a[href]')) onClose();
+    }, [onClose]);
 
     return ( isMediumScreen ? (
         /* DESKTOP DRAWER */
@@ -62,8 +66,7 @@ const ResponsiveDrawer: FC<PropsWithChildren<ResponsiveDrawerProps>> = ({
             <Box
                 role='presentation'
                 // Close the drawer when the content is clicked
-                onClick={onClose}
-                onKeyDown={onClose}
+                onClick={onNavigationClick}
             >
                 {children}
             </Box>

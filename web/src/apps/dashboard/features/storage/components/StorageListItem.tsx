@@ -49,7 +49,7 @@ const StorageListItem: FC<StorageListItemProps> = ({
     const statusColor = folder ? getStatusColor(usedPercentage) : 'primary';
 
     return (
-        <ListItem>
+        <ListItem className='studioStorageEntry'>
             <ListItemIcon title={getStorageTypeText(folder?.StorageType)}>
                 <StorageTypeIcon type={folder?.StorageType} />
             </ListItemIcon>

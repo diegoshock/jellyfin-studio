@@ -134,7 +134,7 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
     const isPlayingMedia = !!device.NowPlayingItem;
 
     return (
-        <Card sx={{ width: { xs: '100%', sm: '360px' } }}>
+        <Card className={`studioDeviceCard${isPlayingMedia ? ' studioDeviceCard-playing' : ''}`} sx={{ width: { xs: '100%', sm: '360px' } }}>
             <InputDialog
                 open={isMessageDialogOpen}
                 onClose={onMessageDialogClose}
@@ -218,30 +218,30 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
                     }}
                 />
             )}
-            <CardActions disableSpacing>
+            {(canControl || isPlayingMedia) && <CardActions disableSpacing>
                 <Stack direction='row' flexGrow={1} justifyContent='center'>
                     {canControl && isPlayingMedia && (
                         <>
-                            <IconButton onClick={onPlayPauseSession}>
+                            <IconButton onClick={onPlayPauseSession} aria-label={globalize.translate(device.PlayState?.IsPaused ? 'Play' : 'Pause')}>
                                 {device.PlayState?.IsPaused ? <PlayArrow /> : <Pause />}
                             </IconButton>
-                            <IconButton onClick={onStopSession}>
+                            <IconButton onClick={onStopSession} aria-label={globalize.translate('Stop')}>
                                 <Stop />
                             </IconButton>
                         </>
                     )}
                     {isPlayingMedia && (
-                        <IconButton onClick={showPlaybackInfo}>
+                        <IconButton onClick={showPlaybackInfo} aria-label={globalize.translate('ButtonInfo')}>
                             <Info />
                         </IconButton>
                     )}
                     {canControl && (
-                        <IconButton onClick={showMessageDialog}>
+                        <IconButton onClick={showMessageDialog} aria-label={globalize.translate('HeaderSendMessage')}>
                             <Comment />
                         </IconButton>
                     )}
                 </Stack>
-            </CardActions>
+            </CardActions>}
             {device.UserName && (
                 <Stack
                     direction='row'

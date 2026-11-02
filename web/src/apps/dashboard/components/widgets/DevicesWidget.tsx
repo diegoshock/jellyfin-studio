@@ -13,7 +13,7 @@ const DevicesWidget = () => {
             title={globalize.translate('HeaderDevices')}
             href='/dashboard/devices'
         >
-            <Stack direction='row' flexWrap='wrap' gap={2}>
+            <Stack className='studioDeviceList' direction='row' flexWrap='wrap' gap={2}>
                 {devices?.map(device => (
                     <DeviceCard
                         key={device.Id}
