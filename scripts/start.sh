@@ -6,7 +6,15 @@ if [[ ! -f "$STUDIO_ROOT/web/dist/index.html" ]]; then
     exit 1
 fi
 cd "$STUDIO_ROOT/server"
-exec dotnet run --project Jellyfin.Server --no-build --no-launch-profile -- \
+if [[ -f "$STUDIO_ROOT/server/Jellyfin.Server/bin/Debug/net10.0/jellyfin.dll" ]]; then
+    studio_server=(dotnet run --project Jellyfin.Server --no-build --no-launch-profile --)
+elif [[ -x "$STUDIO_ROOT/.local/publish-v12/jellyfin" ]]; then
+    studio_server=("$STUDIO_ROOT/.local/publish-v12/jellyfin")
+else
+    echo 'Build Jellyfin 12.4 first: bash scripts/build.sh' >&2
+    exit 1
+fi
+exec "${studio_server[@]}" \
     --webdir "$STUDIO_ROOT/web/dist" \
     --datadir "$STUDIO_ROOT/.local/data" \
     --cachedir "$STUDIO_ROOT/.local/cache" \

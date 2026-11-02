@@ -2,7 +2,7 @@
 
 Servidor multimedia basado en Jellyfin con una interfaz moderna. Incluye el
 código fuente del servidor en `server/` y del cliente oficial en `web/`, ambos
-basados en **Jellyfin v10.11.11**. El tema **Studio** es la primera capa visual:
+basados en **Jellyfin v12.4** (servidor y cliente `12.4.0`). El tema **Studio** es la primera capa visual:
 superficies oscuras, acento rojo granate, navegación en cápsulas y carátulas
 con bordes suaves, tomando las capturas de tofa.tv como referencia visual.
 El resto de los temas oficiales sigue disponible en los ajustes de pantalla.
@@ -37,7 +37,7 @@ imagen local y cambia `Repository` en la plantilla a `jellyfin-studio:local`.
 
 ## Desarrollo
 
-Requisitos: Node.js >=20 (upstream recomienda Node 20), npm 10, SDK .NET 9,
+Requisitos: Node.js >=24, npm 11, SDK .NET 10,
 FFmpeg y FFprobe. En Linux también se necesitan las bibliotecas nativas de
 Jellyfin, incluidas fontconfig y FreeType. Para transcodificación completa usa
 la distribución oficial `jellyfin-ffmpeg`; el FFmpeg del sistema sirve para
@@ -51,7 +51,7 @@ bash scripts/build.sh
 bash scripts/start.sh
 ```
 
-La instalación conserva los lockfiles y coloca npm 10 y el SDK, cuando hace
+La instalación conserva los lockfiles y coloca npm 11 y el SDK, cuando hace
 falta, en `../.tools/` (se puede elegir otra ruta con `JELLYFIN_STUDIO_TOOLS`).
 Los datos locales, configuración, caché y logs se guardan en `.local/`, ignorado
 por Git. El servidor utiliza el puerto 8096 por defecto y sirve el cliente
@@ -80,12 +80,12 @@ curl --fail http://127.0.0.1:8096/health
 ```
 
 El tema está en `web/src/themes/studio/theme.scss`; las vistas React usan la
-paleta `studio` de `web/src/themes/themes.ts`. La selección inicial está en
+paleta `studio` de `web/src/themes/studio/index.ts`. La selección inicial está en
 `web/src/config.json`. La autenticación, reproducción y gestión multimedia
 siguen usando el código oficial de Jellyfin.
 
 La portada moderna está en `web/src/components/studio/StudioHome.tsx` y sus estilos
-en `studioHome.scss`. Se monta desde `web/src/controllers/hometab.js` únicamente
+en `studioHome.scss`. Se monta desde `web/src/apps/legacy/controllers/hometab.js` únicamente
 al usar Studio y se desmonta con el ciclo de vida de la página.
 
 Consulta [UPSTREAM.md](UPSTREAM.md) para los commits originales y el proceso de

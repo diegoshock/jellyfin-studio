@@ -13,7 +13,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock('../../hooks/useApi', () => ({ useApi: () => ({ api: { basePath: 'https://media.example' }, user: { Id: 'user-one', ServerId: 'server-one' } }) }));
 vi.mock('@tanstack/react-query', () => ({ useQuery: mocks.query }));
-vi.mock('@jellyfin/sdk/lib/utils/api/items-api', () => ({ getItemsApi: () => ({ getItems: mocks.getItems }) }));
+vi.mock('@jellyfin/sdk/lib/utils/api/library-api', () => ({ getLibraryApi: () => ({ getItems: mocks.getItems }) }));
 vi.mock('@jellyfin/sdk/lib/utils/api/image-api', () => ({ getImageApi: () => ({ getItemImageUrlById: () => 'https://media.example/backdrop.jpg' }) }));
 vi.mock('../router/appRouter', () => ({ appRouter: { getRouteUrl: (item: { Id: string }) => `#/details?id=${item.Id}` } }));
 vi.mock('../../lib/globalize', () => ({ default: { translate: (key: string) => key } }));

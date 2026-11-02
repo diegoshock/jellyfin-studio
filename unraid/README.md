@@ -6,7 +6,7 @@ No reutilices la carpeta de configuración de tu Jellyfin actual.
 
 ## Imagen
 
-El workflow de GitHub publica `ghcr.io/diegoshock/jellyfin-studio:latest` al
+El workflow de GitHub publica `ghcr.io/diegoshock/jellyfin-studio:12.4` y `latest` al
 actualizar `main`. Espera a que termine correctamente. Si el paquete es privado,
 configura la autenticación del registro en Unraid o cambia su visibilidad a
 pública desde GitHub Packages. La publicación del código no garantiza por sí
@@ -57,3 +57,16 @@ hardware y formatos reales.
 
 La plantilla es para `linux/amd64`, arquitectura habitual de Unraid. Las pruebas
 locales del contenedor no sustituyen la validación en tu servidor Unraid.
+
+## Actualizar una instalación anterior
+
+Studio usa ahora Jellyfin Server y Jellyfin Web 12.4, con .NET 10. Se mantienen
+los mismos montajes de `/config`, `/cache` y `/media` y el puerto de la plantilla.
+
+1. Detén el contenedor y guarda una copia de su carpeta appdata antes de cambiar
+   de versión: Jellyfin puede migrar la base de datos durante el arranque.
+2. Usa `ghcr.io/diegoshock/jellyfin-studio:12.4` en **Repository** y actualiza el
+   contenedor. Las instalaciones que usan `latest` también reciben esta base.
+3. Espera a que termine el arranque y comprueba la versión en el panel de control.
+4. Para volver a una versión anterior, restaura también la copia de appdata de
+   esa versión, en lugar de abrir una base ya migrada con un servidor anterior.

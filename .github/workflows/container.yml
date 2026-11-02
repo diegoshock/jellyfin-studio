@@ -17,12 +17,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
           cache-dependency-path: web/package-lock.json
       - name: Verify web client
         working-directory: web
         run: |
+          npm install --global npm@11.21.1
           npm ci --no-audit --no-fund
           npm run build:check
           npm test
@@ -38,6 +39,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=12.4,enable={{is_default_branch}}
             type=sha
             type=semver,pattern={{version}}
       - uses: docker/build-push-action@v6

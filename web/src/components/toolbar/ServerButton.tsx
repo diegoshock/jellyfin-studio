@@ -13,6 +13,7 @@ const ServerButton: FC = () => {
 
     return (
         <Button
+            className='studioServerButton'
             variant='text'
             size='large'
             color='inherit'

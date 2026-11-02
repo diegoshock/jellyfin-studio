@@ -3,7 +3,7 @@ import { ImageType } from '@jellyfin/sdk/lib/generated-client/models/image-type'
 import { ItemFields } from '@jellyfin/sdk/lib/generated-client/models/item-fields';
 import { ItemSortBy } from '@jellyfin/sdk/lib/generated-client/models/item-sort-by';
 import { SortOrder } from '@jellyfin/sdk/lib/generated-client/models/sort-order';
-import { getItemsApi } from '@jellyfin/sdk/lib/utils/api/items-api';
+import { getLibraryApi } from '@jellyfin/sdk/lib/utils/api/library-api';
 import { getImageApi } from '@jellyfin/sdk/lib/utils/api/image-api';
 import { useQuery } from '@tanstack/react-query';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ export default function StudioHome() {
         staleTime: 60000,
         refetchOnWindowFocus: false,
         queryFn: async ({ signal }) => {
-            const response = await getItemsApi(api!).getItems({
+            const response = await getLibraryApi(api!).getItems({
                 userId: user!.Id!,
                 recursive: true,
                 includeItemTypes: [ BaseItemKind.Movie ],

@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
 # Build the retained local outputs with: bash scripts/package-local.sh
-FROM jellyfin/jellyfin:10.11.11
+FROM jellyfin/jellyfin:12.4
 WORKDIR /jellyfin
 LABEL org.opencontainers.image.title="Jellyfin Studio" \
       org.opencontainers.image.source="https://github.com/diegoshock/jellyfin-studio" \
       org.opencontainers.image.licenses="GPL-2.0-or-later"
-COPY --chmod=755 .local/publish/ /jellyfin/
+COPY --chmod=755 .local/publish-v12/ /jellyfin/
 COPY --chmod=755 web/dist/ /jellyfin/jellyfin-web/
 ENV JELLYFIN_DATA_DIR=/config \
     JELLYFIN_CONFIG_DIR=/config/config \
