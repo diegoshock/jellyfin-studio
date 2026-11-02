@@ -10,6 +10,7 @@ if [[ -f "$STUDIO_ROOT/server/Jellyfin.Server/bin/Debug/net10.0/jellyfin.dll" ]]
     studio_server=(dotnet run --project Jellyfin.Server --no-build --no-launch-profile --)
 elif [[ -x "$STUDIO_ROOT/.local/publish-v12/jellyfin" ]]; then
     studio_server=("$STUDIO_ROOT/.local/publish-v12/jellyfin")
+    cd "$STUDIO_ROOT/.local/publish-v12"
 else
     echo 'Build Jellyfin 12.4 first: bash scripts/build.sh' >&2
     exit 1
