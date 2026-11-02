@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { type FC } from 'react';
 import type { UserDto } from '@jellyfin/sdk/lib/generated-client/models/user-dto';
 import Avatar, { type AvatarProps } from '@mui/material/Avatar';
@@ -14,19 +15,21 @@ const UserAvatar: FC<UserAvatarProps> = ({
     user,
     size
 }) => {
-    const { api } = useApi();
+    const { api, __legacyApiClient__ } = useApi();
+    const { data: refreshedUser } = useQuery({ queryKey: ['StudioAvatarTag', user?.Id], enabled: !!user?.Id && user.Id === __legacyApiClient__?.getCurrentUserId(), queryFn: () => __legacyApiClient__!.getCurrentUser() });
+    const imageTag = refreshedUser?.PrimaryImageTag || user?.PrimaryImageTag;
 
     return user ? (
         <Avatar
             alt={user.Name ?? undefined}
             src={
-                api && user.Id && user.PrimaryImageTag ?
-                    `${api.basePath}/Users/${user.Id}/Images/Primary?tag=${user.PrimaryImageTag}` :
+                api && user.Id && imageTag ?
+                    `${api.basePath}/Users/${user.Id}/Images/Primary?tag=${imageTag}` :
                     undefined
             }
             // eslint-disable-next-line react/jsx-no-bind
             sx={(theme) => ({
-                bgcolor: api && user.Id && user.PrimaryImageTag ?
+                bgcolor: api && user.Id && imageTag ?
                     theme.vars.palette.background.paper :
                     theme.vars.palette.primary.dark,
                 color: 'inherit',

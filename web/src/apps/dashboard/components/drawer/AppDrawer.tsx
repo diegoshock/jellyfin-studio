@@ -1,5 +1,7 @@
 import ListItem from '@mui/material/ListItem';
 import List from '@mui/material/List';
+import StudioSettingsSearch from 'components/studio/StudioSettingsSearch';
+import ListItemLink from 'components/ListItemLink';
 import React, { FC } from 'react';
 
 import DrawerHeaderLink from 'apps/modern/components/drawers/DrawerHeaderLink';
@@ -26,6 +28,9 @@ const AppDrawer: FC<ResponsiveDrawerProps> = ({
                 <DrawerHeaderLink />
             </ListItem>
         </List>
+        <StudioSettingsSearch />
+        <ListItemLink to='/dashboard/health'>Salud del servidor</ListItemLink>
+        <ListItemLink to='/studio/setup/library'>Asistente de configuración</ListItemLink>
         <ServerDrawerSection />
         <DevicesDrawerSection />
         <LiveTvDrawerSection />

@@ -11,6 +11,8 @@ import RemotePlayButton from './RemotePlayButton';
 import SyncPlayButton from './SyncPlayButton';
 import SearchButton from './SearchButton';
 import UserViewNav from './userViews/UserViewNav';
+import StudioNav from 'components/studio/StudioNav';
+import StudioSearch from 'components/studio/StudioSearch';
 
 interface AppToolbarProps {
     isDrawerAvailable: boolean
@@ -41,7 +43,7 @@ const AppToolbar: FC<AppToolbarProps> = ({
                 <>
                     <SyncPlayButton />
                     <RemotePlayButton />
-                    <SearchButton />
+                    {theme === 'studio' ? <StudioSearch /> : <SearchButton />}
                 </>
             )}
             isDrawerAvailable={isDrawerAvailable}
@@ -51,7 +53,7 @@ const AppToolbar: FC<AppToolbarProps> = ({
             isUserMenuAvailable={!isPublicPath}
             className='padded-left padded-right'
         >
-            {isDrawerAvailable && theme === 'studio' && <ServerButton />}
+            {isDrawerAvailable && theme === 'studio' && <><ServerButton /><StudioNav /></>}
             {!isDrawerAvailable && (
                 <Stack
                     direction='row'
@@ -60,7 +62,7 @@ const AppToolbar: FC<AppToolbarProps> = ({
                     <ServerButton />
 
                     {!isPublicPath && (
-                        <UserViewNav />
+                        theme === 'studio' ? <StudioNav /> : <UserViewNav />
                     )}
                 </Stack>
             )}

@@ -17,6 +17,8 @@ import { useApi } from 'hooks/useApi';
 import { useLocale } from 'hooks/useLocale';
 
 import AppTabs from './components/AppTabs';
+import StudioNav from 'components/studio/StudioNav';
+import { useUserTheme } from 'hooks/useUserTheme';
 import AppDrawer from './components/drawer/AppDrawer';
 import HelpButton from './components/toolbar/HelpButton';
 import { DASHBOARD_APP_PATHS } from './routes/routes';
@@ -26,6 +28,7 @@ import './AppOverrides.scss';
 export const Component: FC = () => {
     const [ isDrawerActive, setIsDrawerActive ] = useState(false);
     const location = useLocation();
+    const { theme } = useUserTheme();
     const { user } = useApi();
     const { dateFnsLocale } = useLocale();
 
@@ -84,7 +87,7 @@ export const Component: FC = () => {
                                 <ServerButton />
                             )}
 
-                            <AppTabs isDrawerOpen={isDrawerOpen} />
+                            {theme === 'studio' ? <StudioNav /> : <AppTabs isDrawerOpen={isDrawerOpen} />}
                         </AppToolbar>
                     </OffsetAppBar>
 

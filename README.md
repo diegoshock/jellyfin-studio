@@ -2,23 +2,35 @@
 
 Servidor multimedia basado en Jellyfin con una interfaz moderna. Incluye el
 código fuente del servidor en `server/` y del cliente oficial en `web/`, ambos
-basados en **Jellyfin v12.4** (servidor y cliente `12.4.0`). El tema **Studio** es la primera capa visual:
+basados en **Jellyfin v12.4** (servidor y cliente `12.4.0`). El tema **Studio** incluye una interfaz cinematográfica y un asistente propio:
 superficies oscuras, acento rojo granate, navegación en cápsulas y carátulas
 con bordes suaves, tomando las capturas de tofa.tv como referencia visual.
 El resto de los temas oficiales sigue disponible en los ajustes de pantalla.
 
-El inicio Studio incluye una portada de películas recientes con fondo, sinopsis,
+El inicio Studio incluye una portada de borde a borde para películas recientes, con fondo difuminado, sinopsis,
 metadatos y acciones de reproducción/reanudación y detalle. El carrusel cambia
 manualmente, las bibliotecas usan accesos compactos y los carriles originales
 de continuar viendo y novedades conservan su configuración. El contenido se
 consulta con los permisos del usuario conectado: no se inventan recomendaciones
 ni carátulas. Una biblioteca sin películas mantiene el estado original de Jellyfin.
 
-Captura real del contenedor con una biblioteca sintética de demostración:
+La navegación incorpora Explorar, Descubrir, canales por género y maratones de series.
+El onboarding configura bibliotecas, avatar, idiomas, reproducción y acceso remoto,
+y termina con un resumen real del servidor. Administración incluye búsqueda de
+ajustes y salud del proceso Jellyfin. El menú de perfil ofrece historial,
+preferencias y cierre de sesión.
+
+[Funciones, alcance y configuración del nuevo onboarding](docs/studio-onboarding.md).
+Descubrir y las sagas externas utilizan TMDb, con enlaces a IMDb cuando están disponibles.
+Se conserva el acceso remoto de Jellyfin, sin relay.
+
+Captura real de Studio con una biblioteca sintética de demostración:
 
 ![Inicio Studio](docs/screenshots/inicio.png)
 
-[Versión móvil](docs/screenshots/movil.png) · [Reproductor](docs/screenshots/reproductor.png)
+[Versión móvil](docs/screenshots/movil.png) · [Explorar](docs/screenshots/explorar.png) · [Ficha](docs/screenshots/pelicula.png)
+
+[Avatar del onboarding](docs/screenshots/onboarding-avatar.png) · [Resumen final](docs/screenshots/onboarding-final.png) · [Salud](docs/screenshots/salud.png)
 
 Los vídeos y carátulas de prueba de las capturas no están incluidos en la imagen.
 
@@ -55,7 +67,7 @@ La instalación conserva los lockfiles y coloca npm 11 y el SDK, cuando hace
 falta, en `../.tools/` (se puede elegir otra ruta con `JELLYFIN_STUDIO_TOOLS`).
 Los datos locales, configuración, caché y logs se guardan en `.local/`, ignorado
 por Git. El servidor utiliza el puerto 8096 por defecto y sirve el cliente
-compilado desde `web/dist/`. La primera ejecución muestra el asistente oficial;
+compilado desde `web/dist/`. La primera ejecución muestra el asistente Studio;
 no se crean cuentas, contraseñas ni bibliotecas de ejemplo automáticamente.
 
 Para recarga automática del cliente, con el servidor iniciado:

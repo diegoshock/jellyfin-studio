@@ -1,0 +1,1083 @@
+/* stylelint-disable no-descending-specificity -- Independent component blocks share element names but do not override each other. */
+.studioPage,
+.studioWizard,
+.studioPanel,
+.studioNav {
+    --studio-line: rgba(199, 218, 224, 0.16);
+    --studio-muted: #9caeb4;
+    color: #eef5f5;
+    font-family: inherit;
+}
+
+.studioPage {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2rem 4% 4rem;
+}
+
+.studioPage h1,
+.studioPanel h1,
+.studioWizard h1 {
+    margin: 0.4rem 0 1.2rem;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 750;
+    letter-spacing: -0.055em;
+}
+
+.studioPage h2,
+.studioPanel h2 {
+    letter-spacing: -0.035em;
+}
+
+.studioPage a,
+.studioPanel a,
+.studioWizard a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.studioPage button,
+.studioPanel button,
+.studioWizard button {
+    min-height: 2.65rem;
+    padding: 0.55rem 1rem;
+    color: inherit;
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #11191e;
+    border: 1px solid var(--studio-line);
+    border-radius: 0.7rem;
+}
+
+.studioPage button:disabled,
+.studioPanel button:disabled,
+.studioWizard button:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.studioPage input,
+.studioPage select,
+.studioPanel input,
+.studioPanel select,
+.studioSettingsSearch input {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 2.8rem;
+    padding: 0.7rem 0.9rem;
+    color: #edf3f4;
+    font: inherit;
+    font-size: 0.9rem;
+    background: #0e161b;
+    border: 1px solid var(--studio-line, #344049);
+    border-radius: 0.65rem;
+    color-scheme: dark;
+}
+
+.studioPanel label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.studioNav {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    margin-left: 1rem;
+    white-space: nowrap;
+    background: rgba(4, 12, 17, 0.58);
+    border: 1px solid var(--studio-line);
+    border-radius: 2rem;
+}
+
+.studioNav a {
+    padding: 0.6rem 1.1rem;
+    color: #bbcbce;
+    font-size: 0.82rem;
+    font-weight: 650;
+    text-decoration: none;
+    border-radius: 2rem;
+}
+
+.studioNav a.active {
+    color: #fff;
+    background: rgba(142, 32, 59, 0.45);
+}
+
+.studioEyebrow {
+    margin: 0 0 0.8rem;
+    color: #d98b9e;
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.15em;
+}
+
+.studioMuted,
+.studioPoster small {
+    color: var(--studio-muted);
+    font-size: 0.85rem;
+    line-height: 1.65;
+}
+
+.studioPage-heading,
+.studioFilters,
+.studioPanelFooter,
+.studioPreferenceRow,
+.studioWizard-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.studioPage-heading h1 small {
+    margin-left: 0.5rem;
+    color: var(--studio-muted);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.studioTabs {
+    display: flex;
+    gap: 1rem;
+    margin: 0.7rem 0 1.5rem;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--studio-line);
+}
+
+.studioTabs button {
+    padding: 0.8rem 0.2rem;
+    white-space: nowrap;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+}
+
+.studioTabs button[aria-pressed='true'] {
+    border-bottom-color: #ad3655;
+}
+
+.studioFilters {
+    justify-content: flex-start;
+    margin-bottom: 1.8rem;
+}
+
+.studioFilters select,
+.studioFilters button,
+.studioFilters input {
+    min-height: 2.2rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 2rem;
+}
+
+.studioFilters a {
+    padding: 0.5rem;
+    color: var(--studio-muted);
+    font-size: 0.8rem;
+}
+
+.studioFilters .studioYear {
+    width: 5rem;
+}
+
+.studioCatalogLayout {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.studioPosterGrid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.6rem 1rem;
+}
+
+.studioPoster {
+    min-width: 0;
+}
+
+.studioPoster-art {
+    position: relative;
+    display: flex;
+    aspect-ratio: 2 / 3;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(140deg, #263744, #11191e);
+    border-radius: 0.55rem;
+}
+
+.studioPoster-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.studioPoster strong,
+.studioPoster small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.studioPoster strong {
+    margin-top: 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 550;
+}
+
+.studioPoster-rating,
+.studioPoster-watched {
+    position: absolute;
+    top: 0.45rem;
+    padding: 0.15rem 0.4rem;
+    color: #a8e3b3;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(5, 17, 22, 0.88);
+    border-radius: 0.3rem;
+}
+
+.studioPoster-rating {
+    left: 0.4rem;
+}
+
+.studioPoster-watched {
+    right: 0.4rem;
+}
+
+.studioAlphabet {
+    position: sticky;
+    top: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.studioAlphabet button {
+    min-height: 1.1rem;
+    padding: 0.1rem 0.3rem;
+    color: var(--studio-muted);
+    font-size: 0.65rem;
+    background: transparent;
+    border: 0;
+}
+
+.studioAlphabet button[aria-pressed='true'] {
+    color: #f39aaa;
+}
+
+.studioPagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.studioEmpty {
+    padding: 5rem 1rem;
+    text-align: center;
+}
+
+.studioEmpty > span {
+    font-size: 3rem;
+}
+
+.studioDiscoverFeature,
+.studioChannelPreview {
+    position: relative;
+    display: flex;
+    min-height: 24rem;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    background: #0d171f;
+    border: 1px solid var(--studio-line);
+    border-radius: 1rem;
+}
+
+.studioDiscoverFeature > img,
+.studioChannelPreview > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.studioDiscoverFeature > div,
+.studioChannelPreview > div {
+    position: relative;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(0deg, #071016 5%, rgba(7, 16, 22, 0.65), transparent);
+}
+
+.studioDiscoverFeature h2,
+.studioChannelPreview h2 {
+    font-size: 2rem;
+}
+
+.studioDiscoverFeature p:not(.studioEyebrow),
+.studioChannelPreview p:not(.studioEyebrow) {
+    max-width: 40rem;
+    max-height: 4.8em;
+    overflow: hidden;
+    line-height: 1.6;
+}
+
+.studioPanel {
+    box-sizing: border-box;
+    padding: clamp(1.2rem, 3vw, 2.4rem);
+    background: rgba(7, 14, 18, 0.92);
+    border: 1px solid var(--studio-line);
+    border-radius: 1.25rem;
+}
+
+.studioPanel details {
+    padding: 1rem;
+    margin: 1.5rem 0;
+    color: var(--studio-muted);
+    background: #0d151a;
+    border: 1px solid var(--studio-line);
+    border-radius: 0.75rem;
+}
+
+.studioPanel summary {
+    color: #e4eeef;
+    cursor: pointer;
+}
+
+.studioPanel .studioAction-primary,
+.studioWizard .studioAction-primary {
+    min-width: 10rem;
+    min-height: 3.25rem;
+    background: #8e203b;
+    border-color: #ac4961;
+}
+
+.studioPanelFooter {
+    margin-top: 1.8rem;
+    font-size: 0.85rem;
+}
+
+.studioPreferenceRow {
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--studio-line);
+}
+
+.studioSegmented {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 0.15rem;
+    background: #0d151a;
+    border: 1px solid var(--studio-line);
+    border-radius: 2rem;
+}
+
+.studioSegmented button {
+    min-height: 2rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 0;
+    border-radius: 2rem;
+}
+
+.studioSegmented button[aria-pressed='true'] {
+    color: #f39aaa;
+    background: #371a25;
+}
+
+.studioProfilePreview {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.studioProfilePreview > div:first-child {
+    width: 6rem;
+}
+
+.studioAvatarGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+    margin: 1rem 0;
+}
+
+.studioAvatarGrid button {
+    padding: 0.35rem;
+    background: #0d181f;
+}
+
+.studioAvatarGrid button[aria-pressed='true'] {
+    background: #341b27;
+    border-color: #d36983;
+}
+
+.studioAvatarGrid svg {
+    max-height: 5rem;
+}
+
+.studioUpload {
+    color: #e59aae;
+}
+
+.studioChannelLayout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.studioChannelRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--studio-line);
+}
+
+.studioChannelRow .studioChannelName {
+    flex-grow: 1;
+    text-align: left;
+    background: transparent;
+    border: 0;
+}
+
+.studioChannelName span {
+    margin-right: 0.6rem;
+    color: #bf7e94;
+}
+
+.studioChannelName small {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--studio-muted);
+}
+
+.studioPage .studioSwitch,
+.studioPanel .studioSwitch {
+    width: 2.8rem;
+    min-width: 2.8rem;
+    min-height: 1.5rem;
+    padding: 0.15rem;
+    background: #39444e;
+    border: 0;
+    border-radius: 2rem;
+}
+
+.studioSwitch span {
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.studioSwitch[aria-checked='true'] {
+    background: #8e203b;
+}
+
+.studioSwitch[aria-checked='true'] span {
+    margin-left: auto;
+}
+
+.studioGuide {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+}
+
+.studioGuide button {
+    min-width: 8rem;
+    flex: 1;
+    text-align: left;
+}
+
+.studioGuide small,
+.studioGuide strong {
+    display: block;
+}
+
+.studioGuide small {
+    margin-bottom: 0.5rem;
+    color: #d98b9e;
+}
+
+.studioMetric {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    font-size: 0.82rem;
+    border-bottom: 1px solid var(--studio-line);
+}
+
+.studioMetric progress,
+.studioWizard-progress progress {
+    width: 100%;
+    height: 0.25rem;
+    overflow: hidden;
+    appearance: none;
+    accent-color: #b53958;
+    background: #222e35;
+    border: 0;
+    border-radius: 1rem;
+}
+
+.studioMetric progress::-webkit-progress-bar,
+.studioWizard-progress progress::-webkit-progress-bar {
+    background: #222e35;
+}
+
+.studioMetric progress::-webkit-progress-value,
+.studioWizard-progress progress::-webkit-progress-value {
+    background: #b53958;
+}
+
+.studioMetric progress::-moz-progress-bar,
+.studioWizard-progress progress::-moz-progress-bar {
+    background: #b53958;
+}
+
+.studioNetworkDiagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.studioNetworkDiagram span {
+    padding: 1rem;
+    color: #75b3bd;
+    background: #10232d;
+    border: 1px solid #27444e;
+    border-radius: 1rem;
+}
+
+.studioNetworkDiagram i {
+    width: 12%;
+    height: 2px;
+    background: #416c76;
+}
+
+.studioNotice {
+    padding: 1rem;
+    background: #0d2428;
+    border: 1px solid #28515a;
+    border-radius: 0.75rem;
+}
+
+.studioNotice p {
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+}
+
+.studioError {
+    padding: 1rem;
+    color: #ffb5c3;
+    background: #301923;
+    border-radius: 0.7rem;
+}
+
+.studioWizard {
+    position: relative;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 1.5rem 2rem 3rem;
+    background: radial-gradient(ellipse at 20% 30%, #102f48, transparent 65%), #040d13;
+}
+
+.studioWizard-backdrop {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.22;
+    mask-image: linear-gradient(#000, transparent);
+}
+
+.studioWizard-header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.studioWordmark {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 1.5rem;
+    font-weight: 750;
+    letter-spacing: -0.06em;
+}
+
+.studioJellyfinMark {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background: #bf4567;
+    mask: url(@jellyfin/ux-web/icon-transparent.png) center / contain no-repeat;
+}
+
+.studioWizard-progress {
+    width: min(40%, 36rem);
+}
+
+.studioWizard-progress > div {
+    display: flex;
+    gap: 1rem;
+}
+
+.studioWizard-progress > div > div {
+    flex: 1;
+}
+
+.studioWizard-progress span {
+    display: block;
+    font-size: 0.75rem;
+}
+
+.studioWizard-progress small {
+    display: block;
+    margin-top: 0.6rem;
+    color: #a1b1b8;
+    text-align: right;
+    font-size: 0.72rem;
+}
+
+.studioWizard-layout {
+    position: relative;
+    display: grid;
+    width: 100%;
+    max-width: 1600px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: center;
+    margin: 3rem auto 0;
+}
+
+.studioWizard-visual {
+    position: relative;
+    align-self: stretch;
+    min-height: 32rem;
+    overflow: hidden;
+}
+
+.studioWizard-mosaic {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+    mask-image: linear-gradient(#000 60%, transparent);
+}
+
+.studioWizard-mosaic div {
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.studioWizard-mosaic img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+.studioWizard-caption {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+}
+
+.studioWizard-caption small {
+    color: #a3b8be;
+}
+
+.studioWizard-caption h2 {
+    margin-top: 0.5rem;
+    font-size: 1.7rem;
+    letter-spacing: -0.04em;
+}
+
+.studioWizard-welcome {
+    display: flex;
+    min-height: 30rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.studioWizard-welcome > .studioJellyfinMark {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 2rem;
+}
+
+.studioWizard-welcome h2 {
+    margin: 0;
+    font-size: clamp(2rem, 3.6vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.065em;
+}
+
+.studioWizard-welcome > p:last-child {
+    color: #9eb5bd;
+}
+
+.studioWizard-form {
+    min-width: 0;
+}
+
+.studioWizard-form > .studioPage {
+    padding: 1.5rem;
+    background: rgba(7, 14, 18, 0.94);
+    border: 1px solid var(--studio-line);
+    border-radius: 1.25rem;
+}
+
+.studioWizard-form .studioChannelLayout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.studioWizard-form .studioChannelPreview {
+    min-height: 15rem;
+}
+
+.studioWizard-navigation {
+    margin-top: 1.3rem;
+}
+
+.studioWizard-navigation > button:first-child {
+    margin-right: auto;
+    background: transparent;
+    border: 0;
+    color: #db8fa3;
+}
+
+.studioWizard-saveHint {
+    text-align: right;
+    font-size: 0.72rem;
+}
+
+.studioPathInput {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.studioPathInput input {
+    width: 100%;
+}
+
+.studioLibrarySummary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-top: 1px solid var(--studio-line);
+    font-size: 0.8rem;
+}
+
+.studioLibrarySummary small {
+    width: 100%;
+    color: var(--studio-muted);
+    overflow-wrap: anywhere;
+}
+
+.studioWizard-finish .studioWizard-layout {
+    display: block;
+    max-width: 1200px;
+    margin-top: 5rem;
+}
+
+.studioFinishGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.studioFinishCount {
+    font-size: 3.3rem;
+}
+
+.studioSettingsSearch {
+    padding: 0.7rem 1rem;
+}
+
+.studioSettingsSearch input {
+    width: 100%;
+}
+
+.studioSettingsResults {
+    display: flex;
+    flex-direction: column;
+    max-height: 60vh;
+    gap: 0.2rem;
+    overflow-y: auto;
+}
+
+.studioSettingsResults a {
+    padding: 0.75rem;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+
+.studioSettingsResults a:hover {
+    background: #351a25;
+}
+
+.studioPage :focus-visible,
+.studioPanel :focus-visible,
+.studioWizard :focus-visible,
+.studioNav :focus-visible {
+    outline: 2px solid #f39aaa;
+    outline-offset: 3px;
+}
+
+@media (min-width: 1700px) {
+    .studioPosterGrid {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1000px) {
+    .studioChannelLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .studioWizard-layout {
+        gap: 1.5rem;
+        grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+    }
+
+    .studioWizard-welcome {
+        padding: 0;
+    }
+
+    .studioNav a {
+        padding: 0.6rem 0.8rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .studioPage {
+        padding: 1.5rem 5%;
+    }
+
+    .studioNav {
+        margin: 0;
+    }
+
+    .studioNav a {
+        padding: 0.6rem 0.65rem;
+        font-size: 0.73rem;
+    }
+
+    .studioPosterGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem 0.6rem;
+    }
+
+    .studioAlphabet {
+        display: none;
+    }
+
+    .studioWizard {
+        padding: 1.2rem 5%;
+    }
+
+    .studioWizard-progress {
+        width: 55%;
+    }
+
+    .studioWizard-progress > div {
+        gap: 0.5rem;
+    }
+
+    .studioWizard-progress span {
+        font-size: 0.6rem;
+    }
+
+    .studioWordmark {
+        font-size: 1.1rem;
+    }
+
+    .studioWizard-layout {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 2rem;
+    }
+
+    .studioWizard-visual {
+        display: none;
+    }
+
+    .studioFinishGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .studioMetric {
+        grid-template-columns: 6rem 1fr;
+    }
+
+    .studioMetric strong {
+        grid-column: 2;
+    }
+
+    .studioPreferenceRow {
+        gap: 0.6rem;
+    }
+
+    .studioSegmented button {
+        padding: 0.5rem 0.65rem;
+    }
+}
+
+.studioPage .studioPage {
+    padding: 1rem 0;
+}
+
+.studioPage .studioExternalPoster {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    text-align: left;
+}
+
+.studioExternalPoster strong,
+.studioExternalPoster small {
+    display: block;
+    margin-top: 0.4rem;
+}
+
+.studioExternalPoster small {
+    color: #9caeb4;
+}
+
+.studioExternalSaga {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.studioExternalSaga a {
+    display: block;
+    min-width: 7rem;
+    max-width: 7rem;
+    font-size: 0.75rem;
+}
+
+.studioExternalSaga img {
+    width: 7rem;
+    height: 10.5rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.studioExternalSaga strong,
+.studioExternalSaga small {
+    display: block;
+}
+
+.studioAttribution {
+    margin-top: 3rem;
+}
+
+.studioSaga {
+    margin: 1rem 3.5% 2rem 0;
+}
+
+.studioSagaRow {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.4rem;
+}
+
+.studioSagaRow a {
+    min-width: 10rem;
+    width: 10rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.studioSagaRow a > div {
+    position: relative;
+    min-height: 15rem;
+    overflow: hidden;
+    background: #15212a;
+    border-radius: 0.7rem;
+}
+
+.studioSagaRow img {
+    width: 10rem;
+    height: 15rem;
+    object-fit: cover;
+}
+
+.studioSagaRow span {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.5rem;
+    font-size: 0.65rem;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.studioSagaRow strong,
+.studioSagaRow small {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.studioSagaRow small {
+    color: #9caeb4;
+}
+
+.studioSaga-current > div {
+    outline: 2px solid #f39aaa;
+    outline-offset: 2px;
+}
+
+.studioRecommendationRow {
+    margin-bottom: 2.5rem;
+}
+
+.studioRecommendationPosters {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 10rem;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.studioCurrentPortrait {
+    width: 100%;
+    border-radius: 50%;
+}
+/* stylelint-enable no-descending-specificity */

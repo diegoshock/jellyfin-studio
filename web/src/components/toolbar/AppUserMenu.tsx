@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 
 import { appHost } from 'components/apphost';
 import { AppFeature } from 'constants/appFeature';
+import { useUserTheme } from 'hooks/useUserTheme';
 import { useApi } from 'hooks/useApi';
 import { useQuickConnectEnabled } from 'hooks/useQuickConnect';
 import globalize from 'lib/globalize';
@@ -36,6 +37,7 @@ const AppUserMenu: FC<AppUserMenuProps> = ({
     onMenuClose
 }) => {
     const { user } = useApi();
+    const { theme } = useUserTheme();
     const { data: isQuickConnectEnabled } = useQuickConnectEnabled();
 
     const onDownloadManagerClick = useCallback(() => {
@@ -62,6 +64,15 @@ const AppUserMenu: FC<AppUserMenuProps> = ({
         Dashboard.selectServer();
         onMenuClose();
     }, [ onMenuClose ]);
+
+    if (theme === 'studio') {
+        return <Menu id={ID} anchorEl={anchorEl} open={open} onClose={onMenuClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} slotProps={{ paper: { sx: { minWidth: 210, mt: 1, bgcolor: 'rgba(7,20,28,.97)', border: '1px solid rgba(180,210,225,.2)', borderRadius: '16px', p: 1 } } }}>
+            <MenuItem component={Link} to='/studio/history' onClick={onMenuClose}>Mi historial</MenuItem>
+            <MenuItem component={Link} to='/studio/preferences' onClick={onMenuClose}>Ajustes de usuario</MenuItem>
+            <Divider />
+            <MenuItem onClick={onLogoutClick} sx={{ color: '#f39aaa' }}>{globalize.translate('ButtonSignOut')}</MenuItem>
+        </Menu>;
+    }
 
     return (
         <Menu

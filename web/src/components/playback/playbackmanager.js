@@ -660,6 +660,7 @@ function normalizePlayOptions(playOptions) {
 
 function truncatePlayOptions(playOptions) {
     return {
+        autoPlayQueue: playOptions.autoPlayQueue === true,
         aspectRatio: playOptions.aspectRatio,
         fullscreen: playOptions.fullscreen,
         mediaSourceId: playOptions.mediaSourceId,
@@ -3219,7 +3220,8 @@ export class PlaybackManager {
                 console.debug('playing next track');
 
                 const prevSource = getPreviousSource(player);
-                const newItemPlayOptions = newItemInfo.item.playOptions || getDefaultPlayOptions();
+                const newItemPlayOptions = { ...(newItemInfo.item.playOptions || getDefaultPlayOptions()) };
+                if (newItemPlayOptions.autoPlayQueue) newItemPlayOptions.startPositionTicks = 0;
                 const versionSource = getMatchingMediaSource(newItemInfo.item.MediaSources, prevSource);
 
                 if (versionSource) {
@@ -3595,7 +3597,7 @@ export class PlaybackManager {
                 const apiClient = ServerConnections.getApiClient(nextItem.item.ServerId);
 
                 apiClient.getCurrentUser().then(function (user) {
-                    if (user.Configuration.EnableNextEpisodeAutoPlay || nextMediaType !== MediaType.Video) {
+                    if (nextItemPlayOptions.autoPlayQueue || user.Configuration.EnableNextEpisodeAutoPlay || nextMediaType !== MediaType.Video) {
                         self.nextTrack();
 
                         if (newPlayer !== player) {

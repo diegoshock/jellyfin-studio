@@ -10,6 +10,7 @@ import FallbackRoute from 'components/router/FallbackRoute';
 import { ASYNC_PUBLIC_ROUTES, ASYNC_USER_ROUTES } from './asyncRoutes';
 import { LEGACY_PUBLIC_ROUTES, LEGACY_USER_ROUTES } from './legacyRoutes';
 import VideoPage from './video';
+import StudioHub from 'components/studio/StudioHub';
 
 export const APP_ROUTES: RouteObject[] = [
     {
@@ -22,6 +23,7 @@ export const APP_ROUTES: RouteObject[] = [
                 /* User routes */
                 Component: ConnectionRequired,
                 children: [
+                    { path: 'studio/:section/:step?', Component: StudioHub },
                     ...ASYNC_USER_ROUTES.map(toAsyncPageRoute),
                     ...LEGACY_USER_ROUTES.map(toViewManagerPageRoute),
 

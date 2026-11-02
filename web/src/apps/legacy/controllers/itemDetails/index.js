@@ -21,6 +21,7 @@ import mediaInfo from 'components/mediainfo/mediainfo';
 import layoutManager from 'components/layoutManager';
 import listView from 'components/listview/listview';
 import loading from 'components/loading/loading';
+import StudioSaga from 'components/studio/StudioSaga';
 import ItemDetailsMetadataList from 'components/itemDetails/ItemDetailsMetadataList';
 import { playbackManager } from 'components/playback/playbackmanager';
 import { appRouter } from 'components/router/appRouter';
@@ -519,7 +520,13 @@ function renderBackdrop(page, item) {
         // If backdrops are disabled, but the header banner is enabled, add a class to the page to disable the transparency
         page.classList.toggle('noBackdropTransparency', isBannerEnabled && !userSettings.enableBackdrops());
 
-        setBackdrops([item], null, isBannerEnabled);
+        if (document.documentElement.dataset.theme === 'studio' && !layoutManager.tv && isBannerEnabled) {
+            // Studio's full-width banner owns the fade; a second global image would show through it.
+            clearBackdrop();
+            page.classList.remove('noBackdropTransparency');
+        } else {
+            setBackdrops([item], null, isBannerEnabled);
+        }
     } else {
         clearBackdrop();
     }
@@ -563,7 +570,7 @@ function reloadFromItem(instance, page, params, item, user) {
     renderLogo(page, item, apiClient);
 
     // Render the mobile header backdrop
-    if (layoutManager.mobile) {
+    if (layoutManager.mobile || (document.documentElement.dataset.theme === 'studio' && !layoutManager.tv)) {
         renderHeaderBackdrop(page, item, apiClient);
     }
 
@@ -580,6 +587,12 @@ function reloadFromItem(instance, page, params, item, user) {
     const canPlay = reloadPlayButtons(page, item);
 
     setTrailerButtonVisibility(page, item);
+    if (document.documentElement.dataset.theme === 'studio') {
+        page.querySelectorAll('.btnPlay, .btnReplay, .btnPlayTrailer, .btnPlaystate').forEach(button => {
+            button.classList.add('studioLabeledAction');
+            button.querySelector('.detailButton-content')?.setAttribute('data-label', button.title);
+        });
+    }
 
     if (item.Type !== 'Program' || canPlay) {
         hideAll(page, 'mainDetailButtons', true);
@@ -1033,6 +1046,11 @@ function renderDetails(page, instance, item, apiClient, context) {
     }
 
     renderItemCollections(page, item, apiClient, context);
+    renderStudioUniverses(page, item, apiClient, context);
+    const sagaHost = page.querySelector('.studioSagaHost');
+    if (sagaHost && document.documentElement.dataset.theme === 'studio') {
+        instance._unmount.push(renderComponent(StudioSaga, { item }, sagaHost));
+    }
     renderSimilarItems(page, item, context);
     renderMoreFromSeason(page, item, apiClient);
     renderMoreFromArtist(page, item, apiClient);
@@ -1187,6 +1205,56 @@ function renderMoreFromArtist(view, item, apiClient) {
             });
         });
     }
+}
+
+/** Expand genuine collection membership into a release-ordered saga row. */
+function renderStudioUniverses(page, item, apiClient, context) {
+    const host = page.querySelector('.studioUniverseHost');
+    if (!host) return;
+    host.innerHTML = '';
+    host.dataset.itemId = item.Id;
+    if (document.documentElement.dataset.theme !== 'studio' || !['Movie', 'Series'].includes(item.Type)) return;
+    const api = ServerConnections.getApi(item.ServerId);
+    if (!api) return;
+    getLibraryApi(api).getItemCollections({ itemId: item.Id, userId: apiClient.getCurrentUserId() })
+        .then(async response => {
+            for (const collection of response.data.Items || []) {
+                const result = await apiClient.getItems(apiClient.getCurrentUserId(), {
+                    ParentId: collection.Id,
+                    SortBy: 'PremiereDate,SortName',
+                    SortOrder: 'Ascending',
+                    Fields: 'PrimaryImageAspectRatio',
+                    Limit: 100
+                });
+                if (host.dataset.itemId !== item.Id) return;
+                if (!result.Items?.length) continue;
+                const section = document.createElement('section');
+                section.className = 'studioUniverse verticalSection';
+                const title = document.createElement('h2');
+                const link = document.createElement('a');
+                link.className = 'button-link';
+                link.href = appRouter.getRouteUrl({ ...collection, ServerId: item.ServerId });
+                link.textContent = `Parte de ${collection.Name} · ${result.TotalRecordCount || result.Items.length} títulos →`;
+                title.appendChild(link);
+                section.appendChild(title);
+                const hint = document.createElement('p');
+                hint.className = 'secondaryText';
+                hint.textContent = 'En tu biblioteca · orden de estreno';
+                section.appendChild(hint);
+                const scroller = document.createElement('div');
+                scroller.className = 'itemsContainer scrollX';
+                scroller.style.display = 'flex';
+                scroller.style.overflowX = 'auto';
+                section.appendChild(scroller);
+                host.appendChild(section);
+                cardBuilder.buildCards(result.Items, {
+                    parentContainer: section, itemsContainer: scroller,
+                    shape: 'overflowPortrait', scalable: true, showTitle: true,
+                    showYear: true, centerText: false, context
+                });
+                scroller.querySelector(`[data-id="${item.Id}"]`)?.classList.add('studioUniverse-current');
+            }
+        }).catch(error => console.warn('[Studio] Could not load related collections', error));
 }
 
 function renderItemCollections(page, item, apiClient, context) {

@@ -1,3 +1,5 @@
+import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
+import { Link } from 'react-router-dom';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
@@ -83,6 +85,7 @@ const AppToolbar: FC<PropsWithChildren<AppToolbarProps>> = ({
 
             <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>
                 {buttons}
+                {isUserLoggedIn && user?.Policy?.IsAdministrator && <Tooltip title={globalize.translate('TabDashboard')}><IconButton component={Link} to='/dashboard' color='inherit' aria-label={globalize.translate('TabDashboard')}><SettingsOutlined /></IconButton></Tooltip>}
             </Box>
 
             {isUserLoggedIn && isUserMenuAvailable && (

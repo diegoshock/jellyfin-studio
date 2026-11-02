@@ -1,6 +1,6 @@
 @use "../dark/theme";
 
-/* Studio keeps the upstream layouts, playback controls and TV navigation. */
+/* Studio builds on upstream playback controls and TV navigation. */
 html {
     --studio-accent: #8e203b;
     --studio-highlight: #f39aaa;
@@ -287,4 +287,181 @@ html {
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
         transform: translateY(-3px);
     }
+}
+
+/* Full-bleed film details retain the native Jellyfin actions and media tracks. */
+.layout-desktop .itemDetailPage .detailPagePrimaryContainer {
+    padding-top: 0;
+    background: transparent;
+}
+
+.layout-desktop .itemDetailPage .detailRibbon {
+    background: transparent;
+}
+
+.layout-desktop .itemDetailPage .detailImageContainer .card {
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+.layout-desktop .itemDetailPage .nameContainer h1 {
+    font-size: clamp(2rem, 3.2vw, 3.5rem);
+    letter-spacing: -0.05em;
+}
+
+.layout-desktop .itemDetailPage .detailButton {
+    min-height: 3rem;
+    margin-right: 0.65rem;
+    background: rgba(26, 37, 43, 0.8);
+    border: 1px solid rgba(200, 220, 230, 0.18);
+    border-radius: 0.75rem;
+}
+
+.layout-desktop .itemDetailPage .detailButton-content::after {
+    content: attr(data-label);
+}
+
+.layout-desktop .itemDetailPage .detailPagePrimaryContent {
+    background: transparent;
+}
+
+.layout-desktop .itemDetailPage .detailPageSecondaryContainer {
+    background: linear-gradient(transparent, #090b0e 4rem);
+}
+
+.studioUniverse {
+    padding: 1rem 0 2rem;
+}
+
+.studioUniverse h2 {
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.04em;
+}
+
+.studioUniverse .studioUniverse-current .cardBox {
+    outline: 2px solid #f39aaa;
+    outline-offset: 3px;
+}
+
+.dashboardDocument .MuiDrawer-paper {
+    background: rgba(7, 14, 18, 0.97);
+    border-right: 1px solid rgba(190, 210, 220, 0.14);
+}
+
+.dashboardDocument .MuiPaper-rounded {
+    border: 1px solid rgba(190, 210, 220, 0.12);
+    border-radius: 1rem;
+}
+
+.studioHeaderSearch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: clamp(8rem, 14vw, 18rem);
+    padding: 0.45rem 0.8rem;
+    margin: 0.4rem;
+    color: #b0c0c8;
+    background: rgba(4, 12, 17, 0.5);
+    border: 1px solid rgba(190, 210, 220, 0.2);
+    border-radius: 2rem;
+}
+
+.studioHeaderSearch input {
+    width: 100%;
+    min-width: 0;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 0;
+}
+
+@media (min-width: 1000px) {
+    .itemDetailPage .detailPageWrapperContainer {
+        position: relative;
+        padding-top: 6rem;
+    }
+
+    .itemDetailPage .detailPagePrimaryContainer {
+        display: grid;
+        grid-template-columns: 13rem minmax(0, 1fr);
+        gap: 1rem 2rem;
+        padding-top: 0;
+        margin: 0 4% 3rem;
+    }
+
+    .layout-desktop .itemDetailPage .detailRibbon {
+        display: contents;
+    }
+
+    .itemDetailPage .detailPagePrimaryContainer > .detailImageContainer {
+        grid-row: 1 / 4;
+        grid-column: 1;
+    }
+
+    .itemDetailPage .detailImageContainer .card {
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        float: none;
+    }
+
+    .itemDetailPage .infoWrapper {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    .itemDetailPage .mainDetailButtons {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    .itemDetailPage .detailPagePrimaryContent {
+        grid-row: 2;
+        grid-column: 2;
+        padding: 0;
+    }
+
+    .itemDetailPage .itemBackdrop {
+        position: absolute;
+        top: -4rem;
+        right: 0;
+        left: 0;
+        height: 45rem;
+        background-attachment: scroll;
+        mask-image: linear-gradient(#000 40%, transparent);
+    }
+
+    .studioLabeledAction .detailButton-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .studioHeaderSearch {
+        width: 7rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .itemDetailPage .itemBackdrop::after {
+        position: absolute;
+        background: linear-gradient(90deg, rgba(9, 11, 14, 0.7), rgba(9, 11, 14, 0.18)), linear-gradient(0deg, #090b0e, transparent 85%);
+        content: "";
+        inset: 0;
+    }
+
+    .itemDetailPage .mainDetailButtons {
+        gap: 0.65rem;
+    }
+}
+
+/* The detail banner supplies its own gradient when global backdrops are off. */
+.layout-desktop .itemDetailPage.noBackdropTransparency .detailPageWrapperContainer {
+    background: transparent;
 }

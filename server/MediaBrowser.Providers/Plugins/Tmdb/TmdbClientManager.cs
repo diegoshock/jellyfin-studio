@@ -516,6 +516,38 @@ namespace MediaBrowser.Providers.Plugins.Tmdb
         }
 
         /// <summary>
+        /// Gets a cached editorial movie list for Studio discovery.
+        /// </summary>
+        /// <param name="category">Now playing, upcoming, popular or top rated.</param>
+        /// <param name="language">Metadata language.</param>
+        /// <param name="cancellationToken">Request cancellation.</param>
+        /// <returns>One page of non-adult titles.</returns>
+        public async Task<IReadOnlyList<SearchMovie>> GetStudioMoviesAsync(string category, string language, CancellationToken cancellationToken)
+        {
+            var key = $"studio-{category}-{language}";
+            if (_memoryCache.TryGetValue(key, out List<SearchMovie>? cached) && cached is not null)
+            {
+                return cached;
+            }
+
+            var response = category switch
+            {
+                "upcoming" => await _tmDbClient.GetMovieUpcomingListAsync(language, 1, cancellationToken: cancellationToken).ConfigureAwait(false),
+                "top" => await _tmDbClient.GetMovieTopRatedListAsync(language, 1, cancellationToken: cancellationToken).ConfigureAwait(false),
+                "popular" => await _tmDbClient.GetMoviePopularListAsync(language, 1, cancellationToken: cancellationToken).ConfigureAwait(false),
+                _ => await _tmDbClient.GetMovieNowPlayingListAsync(language, 1, cancellationToken: cancellationToken).ConfigureAwait(false)
+            };
+            if (response?.Results is null)
+            {
+                throw new System.Net.Http.HttpRequestException("TMDb discovery returned no response.");
+            }
+
+            var movies = response.Results.FindAll(movie => !movie.Adult);
+            _memoryCache.Set(key, movies, new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30), Size = Math.Max(1, movies.Count) });
+            return movies;
+        }
+
+        /// <summary>
         /// Gets a single page of recommended movies for a movie from the TMDb API.
         /// </summary>
         /// <param name="tmdbId">The TMDb id of the movie.</param>

@@ -8,6 +8,9 @@ fi
 cd "$STUDIO_ROOT/server"
 if [[ -f "$STUDIO_ROOT/server/Jellyfin.Server/bin/Debug/net10.0/jellyfin.dll" ]]; then
     studio_server=(dotnet run --project Jellyfin.Server --no-build --no-launch-profile --)
+elif [[ -f "$STUDIO_ROOT/server/Jellyfin.Server/bin/Release/net10.0/jellyfin.dll" ]]; then
+    studio_server=(dotnet "$STUDIO_ROOT/server/Jellyfin.Server/bin/Release/net10.0/jellyfin.dll")
+    cd "$STUDIO_ROOT/server/Jellyfin.Server/bin/Release/net10.0"
 elif [[ -x "$STUDIO_ROOT/.local/publish-v12/jellyfin" ]]; then
     studio_server=("$STUDIO_ROOT/.local/publish-v12/jellyfin")
     cd "$STUDIO_ROOT/.local/publish-v12"

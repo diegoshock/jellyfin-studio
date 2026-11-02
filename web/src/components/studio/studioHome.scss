@@ -10,12 +10,12 @@
 .studioHeroSkeleton {
     position: relative;
     box-sizing: border-box;
-    min-height: 32rem;
-    margin: 0 3.3% 2rem;
+    min-height: 42rem;
+    margin: -4rem 0 0;
     overflow: hidden;
     background: radial-gradient(ellipse at 80% 20%, #64213b, transparent 65%), #161218;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.25rem;
+    border: 0;
+    border-radius: 0;
 }
 
 .studioHero-art {
@@ -39,12 +39,12 @@
     z-index: 1;
     box-sizing: border-box;
     display: flex;
-    min-height: 32rem;
-    max-width: 48rem;
+    min-height: 42rem;
+    max-width: 56rem;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    padding: 3rem 4rem 4rem;
+    justify-content: flex-end;
+    padding: 9rem 6vw 6rem;
 }
 
 .studioHero-eyebrow {
@@ -301,15 +301,15 @@
 
     .studioHero,
     .studioHeroSkeleton {
-        min-height: 30rem;
-        margin: 0 4% 1.5rem;
-        border-radius: 0.9rem;
+        min-height: 36rem;
+        margin: -4rem 0 0;
+        border-radius: 0;
     }
 
     .studioHero-content {
-        min-height: 30rem;
+        min-height: 36rem;
         justify-content: flex-end;
-        padding: 5rem 1.4rem 5rem;
+        padding: 8rem 5% 5rem;
     }
 
     .studioHero::after {
