@@ -11,8 +11,7 @@ import RemotePlayButton from './RemotePlayButton';
 import SyncPlayButton from './SyncPlayButton';
 import SearchButton from './SearchButton';
 import UserViewNav from './userViews/UserViewNav';
-import StudioNav from 'components/studio/StudioNav';
-import StudioSearch from 'components/studio/StudioSearch';
+import StudioToolbar from 'components/studio/StudioToolbar';
 
 interface AppToolbarProps {
     isDrawerAvailable: boolean
@@ -37,13 +36,23 @@ const AppToolbar: FC<AppToolbarProps> = ({
     // Check if the current path is a public path to hide user content
     const isPublicPath = PUBLIC_PATHS.includes(location.pathname);
 
+    if (theme === 'studio' && !isPublicPath) {
+        return (
+            <StudioToolbar
+                isDrawerAvailable={isDrawerAvailable}
+                isDrawerOpen={isDrawerOpen}
+                onDrawerButtonClick={onDrawerButtonClick}
+            />
+        );
+    }
+
     return (
         <BaseToolbar
             buttons={!isPublicPath && (
                 <>
                     <SyncPlayButton />
                     <RemotePlayButton />
-                    {theme === 'studio' ? <StudioSearch /> : <SearchButton />}
+                    <SearchButton />
                 </>
             )}
             isDrawerAvailable={isDrawerAvailable}
@@ -53,7 +62,6 @@ const AppToolbar: FC<AppToolbarProps> = ({
             isUserMenuAvailable={!isPublicPath}
             className='padded-left padded-right'
         >
-            {isDrawerAvailable && theme === 'studio' && <><ServerButton /><StudioNav /></>}
             {!isDrawerAvailable && (
                 <Stack
                     direction='row'
@@ -62,7 +70,7 @@ const AppToolbar: FC<AppToolbarProps> = ({
                     <ServerButton />
 
                     {!isPublicPath && (
-                        theme === 'studio' ? <StudioNav /> : <UserViewNav />
+                        <UserViewNav />
                     )}
                 </Stack>
             )}

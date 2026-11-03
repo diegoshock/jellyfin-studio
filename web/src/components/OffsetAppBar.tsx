@@ -3,6 +3,8 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import React, { useLayoutEffect, useRef, useState, type FC, type PropsWithChildren } from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
+import { useUserTheme } from 'hooks/useUserTheme';
+
 /** The default height of an AppBar. */
 const DEFAULT_APP_BAR_HEIGHT = 64;
 /** The height of a dense AppBar. */
@@ -24,6 +26,8 @@ const OffsetAppBar: FC<PropsWithChildren<OffsetAppBarProps>> = ({
     elevation = 1,
     ...props
 }) => {
+    const { theme } = useUserTheme();
+    const isStudio = theme === 'studio';
     const appBarRef = useRef<HTMLHtmlElement>(null);
     const [height, setHeight] = useState(dense ? DENSE_APP_BAR_HEIGHT : DEFAULT_APP_BAR_HEIGHT);
 
@@ -38,19 +42,18 @@ const OffsetAppBar: FC<PropsWithChildren<OffsetAppBarProps>> = ({
 
         // Set initial measured height
         const updateHeight = () => {
-            setHeight(Math.ceil(el.getBoundingClientRect().height || 0));
+            const measuredHeight = Math.ceil(el.getBoundingClientRect().height || 0);
+            setHeight(measuredHeight);
+            if (isStudio) document.documentElement.style.setProperty('--studio-header-height', `${measuredHeight}px`);
         };
 
         updateHeight();
 
         // Use ResizeObserver for dynamic changes
-        const observer = new ResizeObserver(entries => {
-            // Use requestAnimationFrame to batch DOM writes
-            window.requestAnimationFrame(() => {
-                for (const entry of entries) {
-                    setHeight(Math.ceil(entry.contentRect.height || 0));
-                }
-            });
+        let frame = 0;
+        const observer = new ResizeObserver(() => {
+            window.cancelAnimationFrame(frame);
+            frame = window.requestAnimationFrame(updateHeight);
         });
         observer.observe(el);
         // Update on window resize as a fallback
@@ -58,9 +61,11 @@ const OffsetAppBar: FC<PropsWithChildren<OffsetAppBarProps>> = ({
 
         return () => {
             observer.disconnect();
+            window.cancelAnimationFrame(frame);
+            if (isStudio) document.documentElement.style.removeProperty('--studio-header-height');
             window.removeEventListener('resize', updateHeight);
         };
-    }, []);
+    }, [isStudio]);
 
     return (
         <>
@@ -68,8 +73,9 @@ const OffsetAppBar: FC<PropsWithChildren<OffsetAppBarProps>> = ({
                 {...props}
                 ref={appBarRef}
                 position='fixed'
-                color={scrollTrigger ? 'default' : 'transparent'}
-                elevation={scrollTrigger ? elevation : 0}
+                className={[props.className, isStudio && 'studioTopBar'].filter(Boolean).join(' ')}
+                color={!isStudio && scrollTrigger ? 'default' : 'transparent'}
+                elevation={!isStudio && scrollTrigger ? elevation : 0}
             >
                 {children}
             </AppBar>

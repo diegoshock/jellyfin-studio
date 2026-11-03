@@ -17,7 +17,7 @@ import { useApi } from 'hooks/useApi';
 import { useLocale } from 'hooks/useLocale';
 
 import AppTabs from './components/AppTabs';
-import StudioNav from 'components/studio/StudioNav';
+import StudioToolbar from 'components/studio/StudioToolbar';
 import { useUserTheme } from 'hooks/useUserTheme';
 import AppDrawer from './components/drawer/AppDrawer';
 import HelpButton from './components/toolbar/HelpButton';
@@ -67,30 +67,38 @@ export const Component: FC = () => {
                         sx={{
                             width: {
                                 xs: '100%',
-                                md: isDrawerAvailable ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%'
+                                md: theme !== 'studio' && isDrawerAvailable ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%'
                             },
                             ml: {
                                 xs: 0,
-                                md: isDrawerAvailable ? DRAWER_WIDTH : 0
+                                md: theme !== 'studio' && isDrawerAvailable ? DRAWER_WIDTH : 0
                             }
                         }}
                     >
-                        <AppToolbar
-                            isBackButtonAvailable={appRouter.canGoBack()}
-                            isDrawerAvailable={!isMediumScreen && isDrawerAvailable}
-                            isDrawerOpen={isDrawerOpen}
-                            onDrawerButtonClick={onToggleDrawer}
-                            buttons={
-                                <HelpButton />
-                            }
-                            className='dashboard-appBar'
-                        >
-                            {isMetadataManager && (
-                                <ServerButton />
-                            )}
+                        {theme === 'studio' ? (
+                            <StudioToolbar
+                                isDrawerAvailable={!isMediumScreen && isDrawerAvailable}
+                                isDrawerOpen={isDrawerOpen}
+                                onDrawerButtonClick={onToggleDrawer}
+                            />
+                        ) : (
+                            <AppToolbar
+                                isBackButtonAvailable={appRouter.canGoBack()}
+                                isDrawerAvailable={!isMediumScreen && isDrawerAvailable}
+                                isDrawerOpen={isDrawerOpen}
+                                onDrawerButtonClick={onToggleDrawer}
+                                buttons={
+                                    <HelpButton />
+                                }
+                                className='dashboard-appBar'
+                            >
+                                {isMetadataManager && (
+                                    <ServerButton />
+                                )}
 
-                            {theme === 'studio' ? <StudioNav /> : <AppTabs isDrawerOpen={isDrawerOpen} />}
-                        </AppToolbar>
+                                <AppTabs isDrawerOpen={isDrawerOpen} />
+                            </AppToolbar>
+                        )}
                     </OffsetAppBar>
 
                     {

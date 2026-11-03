@@ -21,6 +21,7 @@ ajustes y salud del proceso Jellyfin. El menú de perfil ofrece historial,
 preferencias y cierre de sesión.
 
 [Funciones, alcance y configuración del nuevo onboarding](docs/studio-onboarding.md).
+[Navegación común de Studio: comportamiento, capturas y validación](docs/studio-navigation.md).
 Descubrir y las sagas externas utilizan TMDb, con enlaces a IMDb cuando están disponibles.
 Se conserva el acceso remoto de Jellyfin, sin relay.
 

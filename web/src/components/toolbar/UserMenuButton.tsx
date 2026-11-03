@@ -26,6 +26,7 @@ const UserMenuButton = () => {
         <>
             <Tooltip title={globalize.translate('UserMenu')}>
                 <IconButton
+                    className='studioUserMenuButton'
                     size='large'
                     aria-label={globalize.translate('UserMenu')}
                     aria-controls={ID}

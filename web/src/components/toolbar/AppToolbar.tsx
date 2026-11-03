@@ -21,6 +21,7 @@ interface AppToolbarProps {
     onDrawerButtonClick?: (event: React.MouseEvent<HTMLElement>) => void
     isBackButtonAvailable?: boolean
     isUserMenuAvailable?: boolean
+    reserveDrawerSpace?: boolean
     className?: string
 }
 
@@ -39,6 +40,7 @@ const AppToolbar: FC<PropsWithChildren<AppToolbarProps>> = ({
     onDrawerButtonClick = () => { /* no-op */ },
     isBackButtonAvailable = false,
     isUserMenuAvailable = true,
+    reserveDrawerSpace = false,
     className
 }) => {
     const { user } = useApi();
@@ -55,9 +57,13 @@ const AppToolbar: FC<PropsWithChildren<AppToolbarProps>> = ({
                 }
             }}
         >
-            {isUserLoggedIn && isDrawerAvailable && (
+            {isUserLoggedIn && (isDrawerAvailable || reserveDrawerSpace) && (
                 <Tooltip title={globalize.translate(isDrawerOpen ? 'MenuClose' : 'MenuOpen')}>
                     <IconButton
+                        className='studioDrawerButton'
+                        disabled={!isDrawerAvailable}
+                        aria-hidden={!isDrawerAvailable || undefined}
+                        style={!isDrawerAvailable ? { visibility: 'hidden', pointerEvents: 'none' } : undefined}
                         size='large'
                         color='inherit'
                         aria-label={globalize.translate(isDrawerOpen ? 'MenuClose' : 'MenuOpen')}
@@ -83,13 +89,13 @@ const AppToolbar: FC<PropsWithChildren<AppToolbarProps>> = ({
 
             {children}
 
-            <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>
+            <Box className='appToolbarActions' sx={{ display: 'flex', flexGrow: 1, justifyContent: 'flex-end' }}>
                 {buttons}
-                {isUserLoggedIn && user?.Policy?.IsAdministrator && <Tooltip title={globalize.translate('TabDashboard')}><IconButton component={Link} to='/dashboard' color='inherit' aria-label={globalize.translate('TabDashboard')}><SettingsOutlined /></IconButton></Tooltip>}
+                {isUserLoggedIn && user?.Policy?.IsAdministrator && <Tooltip title={globalize.translate('TabDashboard')}><IconButton className='studioSettingsButton' component={Link} to='/dashboard' color='inherit' aria-label={globalize.translate('TabDashboard')}><SettingsOutlined /></IconButton></Tooltip>}
             </Box>
 
             {isUserLoggedIn && isUserMenuAvailable && (
-                <Box sx={{ flexGrow: 0 }}>
+                <Box className='appToolbarUser' sx={{ flexGrow: 0 }}>
                     <UserMenuButton />
                 </Box>
             )}

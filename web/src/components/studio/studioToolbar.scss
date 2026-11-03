@@ -1,0 +1,251 @@
+/* Glass belongs to controls, never to the full viewport header. */
+html .studioTopBar.MuiAppBar-root {
+    color: #eef5f5;
+    background: transparent;
+    background-image: none;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.studioToolbar.MuiToolbar-root {
+    --studio-glass: rgba(9, 15, 20, 0.26);
+    --studio-glass-hover: rgba(4, 9, 13, 0.4);
+    --studio-glass-line: rgba(235, 246, 250, 0.22);
+
+    display: flex;
+    min-height: 0;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 16px 24px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+
+    .studioDrawerButton {
+        display: none;
+    }
+
+    .studioToolbar-brand {
+        width: 174px;
+        min-width: 0;
+        flex: 0 0 174px;
+    }
+
+    .studioServerButton {
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .studioNav,
+    .studioHeaderSearch,
+    .MuiIconButton-root {
+        box-sizing: border-box;
+        color: inherit;
+        background: var(--studio-glass);
+        border: 1px solid var(--studio-glass-line);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(16px) saturate(130%);
+    }
+
+    .studioNav {
+        height: 44px;
+        flex-shrink: 0;
+        padding: 3px;
+        margin: 0;
+        border-radius: 28px;
+    }
+
+    .studioNav a {
+        display: flex;
+        box-sizing: border-box;
+        min-height: 36px;
+        align-items: center;
+        padding: 0 15px;
+        color: inherit;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: background 160ms ease;
+    }
+
+    .studioNav a:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .studioNav a.active {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.13);
+    }
+
+    .studioNav a.active:hover {
+        background: rgba(255, 255, 255, 0.09);
+    }
+
+    .appToolbarActions {
+        min-width: 0;
+        align-items: center;
+        gap: 9px;
+        margin-left: auto;
+    }
+
+    .studioHeaderSearch {
+        width: clamp(140px, 16vw, 260px);
+        min-width: 0;
+        height: 44px;
+        padding: 0 12px;
+        margin: 0;
+        transition: background 160ms ease;
+    }
+
+    .MuiIconButton-root {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        padding: 11px;
+        border-radius: 50%;
+        transition: background 160ms ease;
+    }
+
+    .MuiIconButton-root svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .studioUserMenuButton {
+        padding: 4px;
+    }
+
+    .studioUserMenuButton .MuiAvatar-root {
+        width: 34px;
+        height: 34px;
+    }
+
+    .MuiIconButton-root:hover,
+    .studioHeaderSearch:hover,
+    .studioHeaderSearch:focus-within {
+        background: var(--studio-glass-hover);
+    }
+
+    :focus-visible {
+        outline: 2px solid #edf6fa;
+        outline-offset: 3px;
+    }
+}
+
+.studioAdminDocument .MuiDrawer-paper {
+    top: var(--studio-header-height, 76px);
+    height: calc(100% - var(--studio-header-height, 76px));
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+    .studioToolbar.MuiToolbar-root {
+        gap: 8px;
+        padding-right: 18px;
+        padding-left: 18px;
+
+        .studioToolbar-brand {
+            width: 150px;
+            flex-basis: 150px;
+        }
+
+        .studioNav a {
+            padding-right: 11px;
+            padding-left: 11px;
+        }
+
+        .studioHeaderSearch {
+            width: 140px;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .studioToolbar.MuiToolbar-root {
+        display: grid;
+        grid-template-columns: 36px 32px minmax(0, 1fr) 44px;
+        gap: 8px;
+        padding: 12px 12px 8px;
+
+        .studioDrawerButton {
+            display: inline-flex;
+            grid-row: 1;
+            grid-column: 1;
+            width: 36px;
+            height: 36px;
+            padding: 7px;
+        }
+
+        .studioToolbar-brand {
+            grid-row: 1;
+            grid-column: 2;
+            width: 32px;
+        }
+
+        .studioServerButton {
+            width: 32px;
+            min-width: 32px;
+            height: 36px;
+            padding: 0;
+            font-size: 0;
+        }
+
+        .studioServerButton .MuiButton-startIcon {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .studioNav {
+            grid-row: 1;
+            grid-column: 3 / 5;
+            height: 40px;
+            justify-self: start;
+        }
+
+        .studioNav a {
+            min-height: 32px;
+            padding: 0 7px;
+            font-size: 0.7rem;
+        }
+
+        .appToolbarActions {
+            grid-row: 2;
+            grid-column: 1 / 4;
+            width: 100%;
+            gap: 8px;
+            margin: 0;
+        }
+
+        .studioHeaderSearch {
+            width: auto;
+            flex: 1;
+        }
+
+        .appToolbarUser {
+            grid-row: 2;
+            grid-column: 4;
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .studioToolbar.MuiToolbar-root {
+        gap: 6px;
+        padding-right: 10px;
+        padding-left: 10px;
+
+        .studioNav a {
+            padding-right: 4px;
+            padding-left: 4px;
+            font-size: 0.66rem;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .studioToolbar.MuiToolbar-root .studioNav a,
+    .studioToolbar.MuiToolbar-root .MuiIconButton-root,
+    .studioToolbar.MuiToolbar-root .studioHeaderSearch {
+        transition: none;
+    }
+}

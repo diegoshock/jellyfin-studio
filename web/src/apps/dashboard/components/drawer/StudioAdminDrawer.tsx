@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import DrawerHeaderLink from 'apps/modern/components/drawers/DrawerHeaderLink';
 import ListItemLink from 'components/ListItemLink';
 import StudioSettingsSearch from 'components/studio/StudioSettingsSearch';
 import PluginDrawerSection from './sections/PluginDrawerSection';
@@ -68,9 +67,6 @@ export default function StudioAdminDrawer() {
     const { pathname } = useLocation();
     return (
         <nav className='studioAdminNavigation' aria-label='Administración'>
-            <div className='studioAdminBrand'>
-                <DrawerHeaderLink />
-            </div>
             <StudioSettingsSearch />
             {groups.map((group) => (
                 <section key={group.title}>
