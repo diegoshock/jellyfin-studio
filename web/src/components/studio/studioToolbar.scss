@@ -14,10 +14,15 @@ html .studioTopBar.MuiAppBar-root {
     --studio-glass-line: rgba(235, 246, 250, 0.22);
 
     display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1280px;
     min-height: 0;
     flex-wrap: nowrap;
     gap: 10px;
     padding: 16px 24px;
+    margin-right: auto;
+    margin-left: auto;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 
     .studioDrawerButton {

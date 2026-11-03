@@ -1,7 +1,8 @@
 # Navegación común de Studio
 
 La barra autenticada de Studio comparte una sola composición (`StudioToolbar`)
-entre Inicio, bibliotecas, preferencias y administración. La marca ocupa un ancho
+entre Inicio, bibliotecas, preferencias y administración. El conjunto de marca, menú y controles está centrado en un contenedor de
+ancho máximo de 1280 px; por debajo ocupa el ancho disponible. La marca ocupa un ancho
 fijo: cambiar el nombre del servidor, abrir administración o mostrar su sidebar no
 mueve Inicio, Explorar, Canales ni Descubrir. Administración conserva su sidebar y
 sus enlaces, sin repetir la marca dentro del drawer.
@@ -26,10 +27,11 @@ y los temas distintos de Studio conservan la composición original.
 ## Capturas reales
 
 Capturas de Chromium con la compilación de producción, en una instancia aislada
-con usuario sintético. Las primeras capturas muestran deliberadamente una
-biblioteca vacía; no se incluyen credenciales, tokens ni contenido de la instancia
+con usuario sintético. Las capturas muestran una
+biblioteca sintética de revisión; no se incluyen credenciales, tokens ni contenido de la instancia
 principal. La captura de vídeo usa un patrón audiovisual generado localmente.
 
+- [Inicio centrado, 1920 px](screenshots/navigation-home-1920.png)
 - [Inicio, 1600 px](screenshots/navigation-home-1600.png)
 - [Preferencias, 1600 px](screenshots/navigation-studio-preferences-1600.png)
 - [Administración, 1600 px](screenshots/navigation-dashboard-1600.png)
@@ -64,17 +66,20 @@ de assets/entrypoints, sin errores.
 
 En Chromium se comprobaron `/home`, `/studio/browse`, `/studio/discover`,
 `/studio/preferences`, `/dashboard`, `/dashboard/settings`, `/dashboard/networking`
-y `/dashboard/health` en 1600×1000, 390×1000, 360×1000 y 320×1000, esperando la ruta,
+y `/dashboard/health` en 2560×1000, 1920×1000, 1600×1000, 390×1000, 360×1000 y
+320×1000, esperando la ruta,
 el layout y una geometría estable antes de medir:
 
 | Ancho | Menú x | Menú y | Altura |
 | --- | --- | --- | --- |
-| 1600 | 208 | 16 | 44 |
+| 2560 | 848 | 16 | 44 |
+| 1920 | 528 | 16 | 44 |
+| 1600 | 368 | 16 | 44 |
 | 390 | 96 | 12 | 40 |
 | 360 | 90 | 12 | 40 |
 | 320 | 90 | 12 | 40 |
 
-Las 32 combinaciones conservaron la posición entre páginas, sin desbordamiento
+Las 48 combinaciones conservaron la posición entre páginas, sin desbordamiento
 horizontal. Se verificaron transparencia, ausencia de desenfoque y sombra en el
 contenedor, engranaje de 44×44 px con radio 50%, fondo normal
 `rgba(9,15,20,0.26)` y hover `rgba(4,9,13,0.4)`, y apertura del drawer móvil.
