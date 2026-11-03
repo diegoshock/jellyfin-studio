@@ -96,3 +96,21 @@ También se verificó el desplazamiento real de 800 px del formulario de Red a
 1600×1000, conservando la barra transparente y el menú en y=16. Los menús de
 SyncPlay y reproducción remota abrieron correctamente. La revisión incluye foco
 de teclado visible y transiciones desactivadas con `prefers-reduced-motion`.
+
+
+## Portadas de fichas sin franja superior
+
+La portada de las fichas de Studio compensa la altura real de la cabecera mediante
+`--studio-header-height`. Se elimina el desplazamiento fijo de 4 rem que dejaba
+una franja negra entre el borde superior y la imagen al combinarse con el
+espaciador de la barra. Los textos y controles conservan su espacio bajo el menú.
+El cambio se limita al tema Studio.
+
+La revisión usa dos películas sintéticas de la instancia aislada, en 1920, 1600,
+1000, 999, 900, 390, 360 y 320 px. Se comprueba que la imagen comienza en y=0, que
+el contenido queda por debajo de la cabecera y que no aumenta el ancho de la página
+respecto al estilo anterior.
+También se comprueba que Dark conserva su espaciado original.
+
+[Ficha de escritorio](screenshots/details-full-bleed-1920.png) ·
+[Ficha móvil](screenshots/details-full-bleed-390.png)

@@ -290,6 +290,10 @@ html {
 }
 
 /* Full-bleed film details retain the native Jellyfin actions and media tracks. */
+.itemDetailPage .itemBackdrop {
+    margin-top: calc(0px - var(--studio-header-height, 76px)) !important;
+}
+
 .layout-desktop .itemDetailPage .detailPagePrimaryContainer {
     padding-top: 0;
     background: transparent;
@@ -424,7 +428,7 @@ html {
 
     .itemDetailPage .itemBackdrop {
         position: absolute;
-        top: -4rem;
+        top: 0;
         right: 0;
         left: 0;
         height: 45rem;
