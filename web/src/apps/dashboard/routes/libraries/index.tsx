@@ -21,7 +21,7 @@ import { useApi } from 'hooks/useApi';
 import { useUserTheme } from 'hooks/useUserTheme';
 import StudioLibrariesDashboard from 'components/studio/StudioLibrariesDashboard';
 import type { VirtualFolderInfo } from '@jellyfin/sdk/lib/generated-client/models/virtual-folder-info';
-import MediaLibraryEditor from 'components/mediaLibraryEditor/mediaLibraryEditor';
+import StudioLibrarySettings, { librarySettingsId } from 'components/studio/StudioLibrarySettings';
 import { invalidateVirtualFolders } from 'apps/dashboard/features/libraries/api/invalidateVirtualFolders';
 
 export const Component = () => {
@@ -48,11 +48,8 @@ export const Component = () => {
     }, [ user ]);
 
     const onManageLibrary = useCallback((library: VirtualFolderInfo) => {
-        const editor = new MediaLibraryEditor({ library, refresh: true }) as Promise<boolean>;
-        void editor.then(hasChanges => {
-            if (hasChanges) invalidateVirtualFolders(user, library);
-        });
-    }, [user]);
+        document.getElementById(librarySettingsId(library.ItemId))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, []);
 
     const onScanLibraries = useCallback(() => {
         if (librariesTask?.Id) {
@@ -78,7 +75,7 @@ export const Component = () => {
                         {isStudio && <StudioLibrariesDashboard folders={virtualFolders || []} onAdd={showMediaLibraryCreator} onManage={onManageLibrary} />}
                         <section id='studioLibraryOptions' className={isStudio ? 'studioLibraryOptions' : undefined} aria-label='Opciones de bibliotecas'>
                             {isStudio && <h2>Opciones de bibliotecas</h2>}
-                            <Stack spacing={3} mt={2}>
+                            {isStudio ? virtualFolders?.map(folder => <StudioLibrarySettings key={folder.ItemId} folder={folder} />) : <Stack spacing={3} mt={2}>
                                 <Stack direction='row' alignItems={'center'} spacing={1.5} useFlexGap flexWrap='wrap'>
                                     <Button
                                         startIcon={<Add />}
@@ -118,7 +115,7 @@ export const Component = () => {
                                         ))}
                                     </Grid>
                                 </Box>
-                            </Stack>
+                            </Stack>}
                         </section>
                     </>
                 )}

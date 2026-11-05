@@ -1,3 +1,5 @@
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import type { VirtualFolderInfo } from '@jellyfin/sdk/lib/generated-client/models/virtual-folder-info';
 import BaseCard from 'apps/dashboard/components/BaseCard';
@@ -30,9 +32,10 @@ import { invalidateVirtualFolders } from '../api/invalidateVirtualFolders';
 
 type LibraryCardProps = {
     virtualFolder: VirtualFolderInfo;
+    actionsOnly?: boolean;
 };
 
-const LibraryCard = ({ virtualFolder }: LibraryCardProps) => {
+const LibraryCard = ({ virtualFolder, actionsOnly = false }: LibraryCardProps) => {
     const { api, user } = useApi();
     const actionRef = useRef<HTMLButtonElement | null>(null);
     const [ anchorEl, setAnchorEl ] = useState<HTMLElement | null>(null);
@@ -179,53 +182,59 @@ const LibraryCard = ({ virtualFolder }: LibraryCardProps) => {
                 onCancel={onCancelDeleteLibrary}
             />
 
-            <BaseCard
-                title={virtualFolder.Name || ''}
-                text={typeName}
-                image={imageUrl}
-                icon={<Icon sx={{ fontSize: 70 }}>{getLibraryIcon(virtualFolder.CollectionType)}</Icon>}
-                action={true}
-                actionRef={actionRef}
-                onActionClick={onActionClick}
-                onClick={showMediaLibraryEditor}
-                height={260}
-            />
-            <Menu
-                anchorEl={anchorEl}
-                open={isMenuOpen}
-                onClose={onMenuClose}
-            >
-                <MenuItem onClick={showImageEditor}>
-                    <ListItemIcon>
-                        <ImageIcon />
-                    </ListItemIcon>
-                    <ListItemText>{globalize.translate('EditImages')}</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={showMediaLibraryEditor}>
-                    <ListItemIcon>
-                        <Folder />
-                    </ListItemIcon>
-                    <ListItemText>{globalize.translate('ManageLibrary')}</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={openRenameDialog}>
-                    <ListItemIcon>
-                        <EditIcon />
-                    </ListItemIcon>
-                    <ListItemText>{globalize.translate('ButtonRename')}</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={showRefreshDialog}>
-                    <ListItemIcon>
-                        <RefreshIcon />
-                    </ListItemIcon>
-                    <ListItemText>{globalize.translate('ScanLibrary')}</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={showDeleteLibraryDialog}>
-                    <ListItemIcon>
-                        <DeleteIcon />
-                    </ListItemIcon>
-                    <ListItemText>{globalize.translate('ButtonRemove')}</ListItemText>
-                </MenuItem>
-            </Menu>
+            {actionsOnly ? <Stack direction='row' flexWrap='wrap' useFlexGap spacing={1}>
+                <Button onClick={showImageEditor}>{globalize.translate('EditImages')}</Button>
+                <Button onClick={openRenameDialog}>{globalize.translate('ButtonRename')}</Button>
+                <Button onClick={showDeleteLibraryDialog}>{globalize.translate('ButtonRemove')}</Button>
+            </Stack> : <>
+                <BaseCard
+                    title={virtualFolder.Name || ''}
+                    text={typeName}
+                    image={imageUrl}
+                    icon={<Icon sx={{ fontSize: 70 }}>{getLibraryIcon(virtualFolder.CollectionType)}</Icon>}
+                    action={true}
+                    actionRef={actionRef}
+                    onActionClick={onActionClick}
+                    onClick={showMediaLibraryEditor}
+                    height={260}
+                />
+                <Menu
+                    anchorEl={anchorEl}
+                    open={isMenuOpen}
+                    onClose={onMenuClose}
+                >
+                    <MenuItem onClick={showImageEditor}>
+                        <ListItemIcon>
+                            <ImageIcon />
+                        </ListItemIcon>
+                        <ListItemText>{globalize.translate('EditImages')}</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={showMediaLibraryEditor}>
+                        <ListItemIcon>
+                            <Folder />
+                        </ListItemIcon>
+                        <ListItemText>{globalize.translate('ManageLibrary')}</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={openRenameDialog}>
+                        <ListItemIcon>
+                            <EditIcon />
+                        </ListItemIcon>
+                        <ListItemText>{globalize.translate('ButtonRename')}</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={showRefreshDialog}>
+                        <ListItemIcon>
+                            <RefreshIcon />
+                        </ListItemIcon>
+                        <ListItemText>{globalize.translate('ScanLibrary')}</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={showDeleteLibraryDialog}>
+                        <ListItemIcon>
+                            <DeleteIcon />
+                        </ListItemIcon>
+                        <ListItemText>{globalize.translate('ButtonRemove')}</ListItemText>
+                    </MenuItem>
+                </Menu>
+            </>}
         </>
     );
 };

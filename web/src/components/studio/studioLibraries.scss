@@ -43,6 +43,17 @@ html[data-theme="studio"] .studioLibrariesPage {
         margin: 0.5rem 0 0;
     }
 
+    .studioLibrarySettings button {
+        padding: 0.6rem 0.9rem;
+        color: #d8edf1;
+        font: inherit;
+        font-size: 0.85rem;
+        cursor: pointer;
+        background: #111d22;
+        border: 1px solid rgba(145, 186, 198, 0.22);
+        border-radius: 0.6rem;
+    }
+
     .studioLibrariesOverview button {
         padding: 0.55rem 0.8rem;
         color: #eaf5f6;
@@ -60,6 +71,11 @@ html[data-theme="studio"] .studioLibrariesPage {
     }
 
     .studioLibrariesOverview button:disabled {
+        cursor: default;
+        opacity: 0.5;
+    }
+
+    .studioLibrarySettings button:disabled {
         cursor: default;
         opacity: 0.5;
     }
@@ -256,6 +272,118 @@ html[data-theme="studio"] .studioLibrariesPage {
     .studioLibraryOptions {
         padding-top: 2rem;
         scroll-margin-top: calc(var(--studio-header-height, 76px) + 1rem);
+    }
+
+    .studioLibrarySettings {
+        padding: 1.4rem;
+        margin-bottom: 1.4rem;
+        background: #080f12;
+        border: 1px solid rgba(145, 186, 198, 0.16);
+        border-radius: 0.9rem;
+        scroll-margin-top: calc(var(--studio-header-height, 76px) + 1rem);
+    }
+
+    .studioLibrarySettings header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(145, 186, 198, 0.12);
+    }
+
+    .studioLibrarySettings header span {
+        color: #8ca7b4;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+    }
+
+    .studioLibrarySettings h2 {
+        margin: 0.4rem 0;
+        font-size: 1.35rem;
+        font-weight: 600;
+    }
+
+    .studioLibrarySettingsNote,
+    .studioLibrarySettings .fieldDescription {
+        color: #8ca7b4;
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+
+    .studioLibrarySettingsNote {
+        padding: 1rem;
+        background: rgba(80, 140, 160, 0.06);
+        border-left: 2px solid #385968;
+        border-radius: 0.4rem;
+    }
+
+    .studioLibraryFolders > div,
+    .studioLibraryFolders li,
+    .studioLibrarySettings footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+    }
+
+    .studioLibraryFolders ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .studioLibraryFolders li {
+        padding: 0.9rem;
+        margin-bottom: 0.5rem;
+        overflow-wrap: anywhere;
+        background: #0c171c;
+        border: 1px solid rgba(145, 186, 198, 0.16);
+        border-radius: 0.7rem;
+    }
+
+    .studioLibraryFolders li span {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .studioLibraryFields {
+        min-width: 0;
+        padding: 0;
+        margin: 2rem 0;
+        border: 0;
+    }
+
+    .studioLibraryFields .libraryOptions > h2,
+    .studioLibraryFields .libraryOptions > div > h2 {
+        padding-top: 1.4rem;
+        margin-top: 1.5rem;
+        border-top: 1px solid rgba(145, 186, 198, 0.12);
+    }
+
+    .studioLibrarySettings .emby-input,
+    .studioLibrarySettings .emby-select,
+    .studioLibrarySettings .emby-textarea,
+    .studioLibrarySettings .paperList {
+        box-sizing: border-box;
+        max-width: 100%;
+        color: #eaf5f6;
+        background: #0c171c;
+        border: 1px solid rgba(145, 186, 198, 0.24);
+        border-radius: 0.6rem;
+    }
+
+    .studioLibrarySettings .listItemBody {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .studioLibrarySettings footer {
+        justify-content: flex-start;
+        padding-top: 1rem;
+        color: #8ca7b4;
+        border-top: 1px solid rgba(145, 186, 198, 0.12);
     }
 
     @media (max-width: 1100px) {

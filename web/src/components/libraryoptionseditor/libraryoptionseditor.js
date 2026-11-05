@@ -18,7 +18,7 @@ import template from './libraryoptionseditor.template.html';
 
 function populateLanguages(parent) {
     return ApiClient.getCultures().then(languages => {
-        populateLanguagesIntoSelect(parent.querySelector('#selectLanguage'), languages);
+        populateLanguagesIntoSelect(parent.querySelector('[data-library-field="selectLanguage"]'), languages);
         populateLanguagesIntoList(parent.querySelector('.subtitleDownloadLanguages'), languages);
     });
 }
@@ -396,7 +396,6 @@ function populateMetadataSettings(parent, contentType) {
         LibraryContentType: contentType,
         IsNewLibrary: isNewLibrary
     })).then(availableOptions => {
-        currentAvailableOptions = availableOptions;
         parent.availableOptions = availableOptions;
         renderMetadataSavers(parent, availableOptions.MetadataSavers);
         renderMetadataReaders(parent, availableOptions.MetadataReaders);
@@ -430,16 +429,16 @@ function adjustSortableListElement(elem) {
     }
 }
 
-function showImageOptionsForType(type) {
+function showImageOptionsForType(parent, type) {
     import('../imageOptionsEditor/imageOptionsEditor').then(({ default: ImageOptionsEditor }) => {
-        let typeOptions = getTypeOptions(currentLibraryOptions, type);
+        let typeOptions = getTypeOptions(parent.libraryOptions, type);
         if (!typeOptions) {
             typeOptions = {
                 Type: type
             };
-            currentLibraryOptions.TypeOptions.push(typeOptions);
+            parent.libraryOptions.TypeOptions.push(typeOptions);
         }
-        const availableOptions = getTypeOptions(currentAvailableOptions || {}, type);
+        const availableOptions = getTypeOptions(parent.availableOptions || {}, type);
         const imageOptionsEditor = new ImageOptionsEditor();
         imageOptionsEditor.show(type, typeOptions, availableOptions);
     });
@@ -448,7 +447,7 @@ function showImageOptionsForType(type) {
 function onImageFetchersContainerClick(e) {
     const btnImageOptionsForType = dom.parentWithClass(e.target, 'btnImageOptionsForType');
     if (btnImageOptionsForType) {
-        showImageOptionsForType(dom.parentWithClass(btnImageOptionsForType, 'imageFetcher').getAttribute('data-type'));
+        showImageOptionsForType(this.closest('.libraryOptions'), dom.parentWithClass(btnImageOptionsForType, 'imageFetcher').getAttribute('data-type'));
         return;
     }
     onSortableContainerClick.call(this, e);
@@ -485,23 +484,23 @@ function bindEvents(parent) {
     parent.querySelector('.imageFetchers').addEventListener('click', onImageFetchersContainerClick);
     parent.querySelector('.similarItemProviders').addEventListener('click', onSortableContainerClick);
 
-    parent.querySelector('#chkEnableEmbeddedTitles').addEventListener('change', (e) => {
+    parent.querySelector('[data-library-field="chkEnableEmbeddedTitles"]').addEventListener('change', (e) => {
         parent.querySelector('.chkEnableEmbeddedExtrasTitlesContainer').classList.toggle('hide', !e.currentTarget.checked);
     });
 }
 
-export async function embed(parent, contentType, libraryOptions) {
-    currentLibraryOptions = {
+export async function embed(parent, contentType, libraryOptions, idPrefix = '') {
+    parent.libraryOptions = {
         TypeOptions: []
     };
-    currentAvailableOptions = null;
+    parent.availableOptions = null;
     const isNewLibrary = libraryOptions === null;
     isNewLibrary && parent.classList.add('newlibrary');
 
-    parent.innerHTML = globalize.translateHtml(template);
-    populateRefreshInterval(parent.querySelector('#selectAutoRefreshInterval'));
-    const promises = [populateLanguages(parent), populateCountries(parent.querySelector('#selectCountry'))];
-    Promise.all(promises).then(function() {
+    parent.innerHTML = globalize.translateHtml(template).replace(/id="([^"]+)"/g, (_, id) => `id="${idPrefix}${id}" data-library-field="${id}"`);
+    populateRefreshInterval(parent.querySelector('[data-library-field="selectAutoRefreshInterval"]'));
+    const promises = [populateLanguages(parent), populateCountries(parent.querySelector('[data-library-field="selectCountry"]'))];
+    return Promise.all(promises).then(function() {
         return setContentType(parent, contentType).then(function() {
             libraryOptions && setLibraryOptions(parent, libraryOptions);
             bindEvents(parent);
@@ -530,11 +529,11 @@ export function setContentType(parent, contentType) {
     if (contentType === 'tvshows') {
         parent.querySelector('.chkAutomaticallyGroupSeriesContainer').classList.remove('hide');
         parent.querySelector('.fldSeasonZeroDisplayName').classList.remove('hide');
-        parent.querySelector('#txtSeasonZeroName').setAttribute('required', 'required');
+        parent.querySelector('[data-library-field="txtSeasonZeroName"]').setAttribute('required', 'required');
     } else {
         parent.querySelector('.chkAutomaticallyGroupSeriesContainer').classList.add('hide');
         parent.querySelector('.fldSeasonZeroDisplayName').classList.add('hide');
-        parent.querySelector('#txtSeasonZeroName').removeAttribute('required');
+        parent.querySelector('[data-library-field="txtSeasonZeroName"]').removeAttribute('required');
     }
 
     if (contentType === 'books' || contentType === 'boxsets' || contentType === 'playlists' || contentType === 'music') {
@@ -542,7 +541,7 @@ export function setContentType(parent, contentType) {
         parent.querySelector('.chkEnableEmbeddedExtrasTitlesContainer').classList.add('hide');
     } else {
         parent.querySelector('.chkEnableEmbeddedTitlesContainer').classList.remove('hide');
-        if (parent.querySelector('#chkEnableEmbeddedTitles').checked) {
+        if (parent.querySelector('[data-library-field="chkEnableEmbeddedTitles"]').checked) {
             parent.querySelector('.chkEnableEmbeddedExtrasTitlesContainer').classList.remove('hide');
         }
     }
@@ -683,8 +682,8 @@ function setSimilarItemProvidersIntoOptions(parent, options) {
     }
 }
 
-function setImageOptionsIntoOptions(options) {
-    const originalTypeOptions = currentLibraryOptions?.TypeOptions || [];
+function setImageOptionsIntoOptions(parent, options) {
+    const originalTypeOptions = parent.libraryOptions?.TypeOptions || [];
     for (const originalTypeOption of originalTypeOptions) {
         let typeOptions = getTypeOptions(options, originalTypeOption.Type);
 
@@ -713,24 +712,24 @@ export function getLibraryOptions(parent) {
         ExtractChapterImagesDuringLibraryScan: parent.querySelector('.chkExtractChaptersDuringLibraryScan').checked,
         EnableChapterImageExtraction: parent.querySelector('.chkExtractChapterImages').checked,
         EnableInternetProviders: true,
-        SaveLocalMetadata: parent.querySelector('#chkSaveLocal').checked,
+        SaveLocalMetadata: parent.querySelector('[data-library-field="chkSaveLocal"]').checked,
         EnableAutomaticSeriesGrouping: parent.querySelector('.chkAutomaticallyGroupSeries').checked,
-        PreferredMetadataLanguage: parent.querySelector('#selectLanguage').value,
-        MetadataCountryCode: parent.querySelector('#selectCountry').value,
-        SeasonZeroDisplayName: parent.querySelector('#txtSeasonZeroName').value,
-        AutomaticRefreshIntervalDays: parseInt(parent.querySelector('#selectAutoRefreshInterval').value, 10),
-        EnableEmbeddedTitles: parent.querySelector('#chkEnableEmbeddedTitles').checked,
-        EnableEmbeddedExtrasTitles: parent.querySelector('#chkEnableEmbeddedExtrasTitles').checked,
-        EnableEmbeddedEpisodeInfos: parent.querySelector('#chkEnableEmbeddedEpisodeInfos').checked,
-        AllowEmbeddedSubtitles: parent.querySelector('#selectAllowEmbeddedSubtitles').value,
-        SkipSubtitlesIfEmbeddedSubtitlesPresent: parent.querySelector('#chkSkipIfGraphicalSubsPresent').checked,
-        SkipSubtitlesIfAudioTrackMatches: parent.querySelector('#chkSkipIfAudioTrackPresent').checked,
-        SaveSubtitlesWithMedia: parent.querySelector('#chkSaveSubtitlesLocally').checked,
-        SaveLyricsWithMedia: parent.querySelector('#chkSaveLyricsLocally').checked,
-        RequirePerfectSubtitleMatch: parent.querySelector('#chkRequirePerfectMatch').checked,
-        AutomaticallyAddToCollection: parent.querySelector('#chkAutomaticallyAddToCollection').checked,
-        PreferNonstandardArtistsTag: parent.querySelector('#chkPreferNonstandardArtistsTag').checked,
-        UseCustomTagDelimiters: parent.querySelector('#chkUseCustomTagDelimiters').checked,
+        PreferredMetadataLanguage: parent.querySelector('[data-library-field="selectLanguage"]').value,
+        MetadataCountryCode: parent.querySelector('[data-library-field="selectCountry"]').value,
+        SeasonZeroDisplayName: parent.querySelector('[data-library-field="txtSeasonZeroName"]').value,
+        AutomaticRefreshIntervalDays: parseInt(parent.querySelector('[data-library-field="selectAutoRefreshInterval"]').value, 10),
+        EnableEmbeddedTitles: parent.querySelector('[data-library-field="chkEnableEmbeddedTitles"]').checked,
+        EnableEmbeddedExtrasTitles: parent.querySelector('[data-library-field="chkEnableEmbeddedExtrasTitles"]').checked,
+        EnableEmbeddedEpisodeInfos: parent.querySelector('[data-library-field="chkEnableEmbeddedEpisodeInfos"]').checked,
+        AllowEmbeddedSubtitles: parent.querySelector('[data-library-field="selectAllowEmbeddedSubtitles"]').value,
+        SkipSubtitlesIfEmbeddedSubtitlesPresent: parent.querySelector('[data-library-field="chkSkipIfGraphicalSubsPresent"]').checked,
+        SkipSubtitlesIfAudioTrackMatches: parent.querySelector('[data-library-field="chkSkipIfAudioTrackPresent"]').checked,
+        SaveSubtitlesWithMedia: parent.querySelector('[data-library-field="chkSaveSubtitlesLocally"]').checked,
+        SaveLyricsWithMedia: parent.querySelector('[data-library-field="chkSaveLyricsLocally"]').checked,
+        RequirePerfectSubtitleMatch: parent.querySelector('[data-library-field="chkRequirePerfectMatch"]').checked,
+        AutomaticallyAddToCollection: parent.querySelector('[data-library-field="chkAutomaticallyAddToCollection"]').checked,
+        PreferNonstandardArtistsTag: parent.querySelector('[data-library-field="chkPreferNonstandardArtistsTag"]').checked,
+        UseCustomTagDelimiters: parent.querySelector('[data-library-field="chkUseCustomTagDelimiters"]').checked,
         MetadataSavers: Array.prototype.map.call(Array.prototype.filter.call(parent.querySelectorAll('.chkMetadataSaver'), elem => {
             return elem.checked;
         }), elem => {
@@ -747,15 +746,15 @@ export function getLibraryOptions(parent) {
     }), elem => {
         return elem.getAttribute('data-lang');
     });
-    options.CustomTagDelimiters = parent.querySelector('#customTagDelimitersInput').value.split('');
-    options.DelimiterWhitelist = parent.querySelector('#tagDelimiterWhitelist').value.split('\n').filter(item => item.trim());
+    options.CustomTagDelimiters = parent.querySelector('[data-library-field="customTagDelimitersInput"]').value.split('');
+    options.DelimiterWhitelist = parent.querySelector('[data-library-field="tagDelimiterWhitelist"]').value.split('\n').filter(item => item.trim());
     setSubtitleFetchersIntoOptions(parent, options);
     setLyricFetchersIntoOptions(parent, options);
     setMediaSegmentProvidersIntoOptions(parent, options);
     setMetadataFetchersIntoOptions(parent, options);
     setImageFetchersIntoOptions(parent, options);
     setSimilarItemProvidersIntoOptions(parent, options);
-    setImageOptionsIntoOptions(options);
+    setImageOptionsIntoOptions(parent, options);
 
     return options;
 }
@@ -771,12 +770,11 @@ function getOrderedPlugins(plugins = [], configuredOrder = []) {
 }
 
 export function setLibraryOptions(parent, options) {
-    currentLibraryOptions = options;
-    currentAvailableOptions = parent.availableOptions;
-    parent.querySelector('#selectLanguage').value = options.PreferredMetadataLanguage || '';
-    parent.querySelector('#selectCountry').value = options.MetadataCountryCode || '';
-    parent.querySelector('#selectAutoRefreshInterval').value = options.AutomaticRefreshIntervalDays || '0';
-    parent.querySelector('#txtSeasonZeroName').value = options.SeasonZeroDisplayName || 'Specials';
+    parent.libraryOptions = options;
+    parent.querySelector('[data-library-field="selectLanguage"]').value = options.PreferredMetadataLanguage || '';
+    parent.querySelector('[data-library-field="selectCountry"]').value = options.MetadataCountryCode || '';
+    parent.querySelector('[data-library-field="selectAutoRefreshInterval"]').value = options.AutomaticRefreshIntervalDays || '0';
+    parent.querySelector('[data-library-field="txtSeasonZeroName"]').value = options.SeasonZeroDisplayName || 'Specials';
     parent.querySelector('.chkEnabled').checked = options.Enabled;
     parent.querySelector('.chkEnablePhotos').checked = options.EnablePhotos;
     parent.querySelector('.chkEnableRealtimeMonitor').checked = options.EnableRealtimeMonitor;
@@ -786,29 +784,29 @@ export function setLibraryOptions(parent, options) {
     parent.querySelector('.chkSaveTrickplayLocally').checked = options.SaveTrickplayWithMedia;
     parent.querySelector('.chkExtractChaptersDuringLibraryScan').checked = options.ExtractChapterImagesDuringLibraryScan;
     parent.querySelector('.chkExtractChapterImages').checked = options.EnableChapterImageExtraction;
-    parent.querySelector('#chkSaveLocal').checked = options.SaveLocalMetadata;
+    parent.querySelector('[data-library-field="chkSaveLocal"]').checked = options.SaveLocalMetadata;
     parent.querySelector('.chkAutomaticallyGroupSeries').checked = options.EnableAutomaticSeriesGrouping;
-    parent.querySelector('#chkEnableEmbeddedTitles').checked = options.EnableEmbeddedTitles;
+    parent.querySelector('[data-library-field="chkEnableEmbeddedTitles"]').checked = options.EnableEmbeddedTitles;
     parent.querySelector('.chkEnableEmbeddedExtrasTitlesContainer').classList.toggle('hide', !options.EnableEmbeddedTitles);
-    parent.querySelector('#chkEnableEmbeddedExtrasTitles').checked = options.EnableEmbeddedExtrasTitles;
-    parent.querySelector('#chkEnableEmbeddedEpisodeInfos').checked = options.EnableEmbeddedEpisodeInfos;
-    parent.querySelector('#selectAllowEmbeddedSubtitles').value = options.AllowEmbeddedSubtitles;
-    parent.querySelector('#chkSkipIfGraphicalSubsPresent').checked = options.SkipSubtitlesIfEmbeddedSubtitlesPresent;
-    parent.querySelector('#chkSaveSubtitlesLocally').checked = options.SaveSubtitlesWithMedia;
-    parent.querySelector('#chkSaveLyricsLocally').checked = options.SaveLyricsWithMedia;
-    parent.querySelector('#chkSkipIfAudioTrackPresent').checked = options.SkipSubtitlesIfAudioTrackMatches;
-    parent.querySelector('#chkRequirePerfectMatch').checked = options.RequirePerfectSubtitleMatch;
-    parent.querySelector('#chkAutomaticallyAddToCollection').checked = options.AutomaticallyAddToCollection;
-    parent.querySelector('#chkPreferNonstandardArtistsTag').checked = options.PreferNonstandardArtistsTag;
-    parent.querySelector('#chkUseCustomTagDelimiters').checked = options.UseCustomTagDelimiters;
+    parent.querySelector('[data-library-field="chkEnableEmbeddedExtrasTitles"]').checked = options.EnableEmbeddedExtrasTitles;
+    parent.querySelector('[data-library-field="chkEnableEmbeddedEpisodeInfos"]').checked = options.EnableEmbeddedEpisodeInfos;
+    parent.querySelector('[data-library-field="selectAllowEmbeddedSubtitles"]').value = options.AllowEmbeddedSubtitles;
+    parent.querySelector('[data-library-field="chkSkipIfGraphicalSubsPresent"]').checked = options.SkipSubtitlesIfEmbeddedSubtitlesPresent;
+    parent.querySelector('[data-library-field="chkSaveSubtitlesLocally"]').checked = options.SaveSubtitlesWithMedia;
+    parent.querySelector('[data-library-field="chkSaveLyricsLocally"]').checked = options.SaveLyricsWithMedia;
+    parent.querySelector('[data-library-field="chkSkipIfAudioTrackPresent"]').checked = options.SkipSubtitlesIfAudioTrackMatches;
+    parent.querySelector('[data-library-field="chkRequirePerfectMatch"]').checked = options.RequirePerfectSubtitleMatch;
+    parent.querySelector('[data-library-field="chkAutomaticallyAddToCollection"]').checked = options.AutomaticallyAddToCollection;
+    parent.querySelector('[data-library-field="chkPreferNonstandardArtistsTag"]').checked = options.PreferNonstandardArtistsTag;
+    parent.querySelector('[data-library-field="chkUseCustomTagDelimiters"]').checked = options.UseCustomTagDelimiters;
     Array.prototype.forEach.call(parent.querySelectorAll('.chkMetadataSaver'), elem => {
         elem.checked = options.MetadataSavers ? options.MetadataSavers.includes(elem.getAttribute('data-pluginname')) : elem.getAttribute('data-defaultenabled') === 'true';
     });
     Array.prototype.forEach.call(parent.querySelectorAll('.chkSubtitleLanguage'), elem => {
         elem.checked = !!options.SubtitleDownloadLanguages && options.SubtitleDownloadLanguages.includes(elem.getAttribute('data-lang'));
     });
-    parent.querySelector('#customTagDelimitersInput').value = options.CustomTagDelimiters.join('');
-    parent.querySelector('#tagDelimiterWhitelist').value = options.DelimiterWhitelist.filter(item => item.trim()).join('\n');
+    parent.querySelector('[data-library-field="customTagDelimitersInput"]').value = options.CustomTagDelimiters.join('');
+    parent.querySelector('[data-library-field="tagDelimiterWhitelist"]').value = options.DelimiterWhitelist.filter(item => item.trim()).join('\n');
     renderMetadataReaders(parent, getOrderedPlugins(parent.availableOptions.MetadataReaders, options.LocalMetadataReaderOrder || []));
     renderMetadataFetchers(parent, parent.availableOptions, options);
     renderImageFetchers(parent, parent.availableOptions, options);
@@ -817,9 +815,6 @@ export function setLibraryOptions(parent, options) {
     renderLyricFetchers(parent, parent.availableOptions, options);
     renderMediaSegmentProviders(parent, parent.availableOptions, options);
 }
-
-let currentLibraryOptions;
-let currentAvailableOptions;
 
 export default {
     embed,

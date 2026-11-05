@@ -1,6 +1,8 @@
 # Studio libraries overview
 
-The Studio theme places a Tofa-inspired library overview above the existing Jellyfin library controls at `/dashboard/libraries`. The original add, scan-all, cards, menus, rename, images, edit and remove flows remain below it on the same scrollable page. Other themes retain the original presentation.
+The Studio theme places a Tofa-inspired library overview above the existing Jellyfin library controls at `/dashboard/libraries`. Complete library settings are embedded below it on the same scrollable page, automatically loaded and expanded for every library. Studio no longer shows poster cards, the duplicate red Add button or an editor modal in this section. Manage scrolls to the corresponding form. Other themes retain the original presentation.
+
+Each settings section uses the dark Studio / Tofa palette, subtle borders, a compact folder list, the full native options editor and a neutral Save Changes button. Rename, image editing and library removal remain available as text actions. Settings save explicitly per library; failed saves retain the edits. Folder additions and confirmed removals retain the native immediate update behavior. Each editor has independent state and namespaced control IDs, so simultaneous libraries cannot share settings or label targets. Query refreshes do not discard unsaved edits.
 
 The overview contains a heading and Add Library action, four catalog metrics, a proportional library distribution, and one table row per configured library with its paths and native Scan / Manage actions. Empty libraries and failed requests have explicit states. On narrow screens the table scrolls inside its own container; the page and original controls fit the viewport.
 
@@ -16,6 +18,6 @@ The overview contains a heading and Add Library action, four catalog metrics, a 
 
 ## Validation
 
-Web type checking, ESLint, Stylelint and the production bundle pass. The web suite contains 214 passing tests, including multiple-library totals, series/episode separation, unknown sizes, empty catalogs, failed requests and native action dispatch. The server builds without warnings or errors. The isolated instance was checked against the native Items API with three synthetic movies and one synthetic series/episode, including denied anonymous access. Browser verification covers 1920, 1600, 999, 390 and 320 px, scrolling to the original options and opening/cancelling native add, manage and scan dialogs without changing production libraries.
+Web type checking, ESLint, Stylelint and the production bundle pass. The web suite contains 218 passing tests, including immediate initialization of simultaneous editors, preservation of drafts on query refresh, independent saves, retained options, failed-save recovery and disabled saves after loading failures. The isolated browser instance covers movie and series settings at 1920, 1600, 999, 390 and 320 px, unique field IDs, no poster cards or editor modal, scrolling from Manage, and an actual native settings save/restore without cross-library state. No production library settings were changed.
 
-Screenshots are in `docs/screenshots/libraries-dashboard-1920.png`, `libraries-dashboard-390.png` and `libraries-original-options-1920.png`.
+Screenshots: `docs/screenshots/libraries-inline-options-1920.png` and `libraries-inline-options-390.png`.
