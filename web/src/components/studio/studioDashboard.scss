@@ -1,0 +1,382 @@
+html[data-theme="studio"] .studioUnifiedDashboard {
+    .studioDashboardMonitor {
+        display: flex;
+        min-height: calc(100svh - var(--studio-header-height, 76px) - 2.5rem);
+        flex-direction: column;
+        gap: 1rem;
+        color: #eaf5f6;
+    }
+
+    .studioDashboardHeading,
+    .studioMonitorCard {
+        box-sizing: border-box;
+        background: #080f12;
+        border: 1px solid rgba(145, 186, 198, 0.16);
+        border-radius: 0.9rem;
+    }
+
+    .studioDashboardHeading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .studioDashboardHeading h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        letter-spacing: -0.04em;
+    }
+
+    .studioDashboardHeading > div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.8rem;
+        color: #869eab;
+        font-size: 0.75rem;
+    }
+
+    .studioLiveControl {
+        padding: 0.55rem 1rem;
+        color: #eaf5f6;
+        font: inherit;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid rgba(225, 242, 247, 0.2);
+        border-radius: 2rem;
+    }
+
+    .studioLiveControl.active {
+        background: rgba(225, 242, 247, 0.13);
+        box-shadow: inset 0 0 0 3px #080f12;
+    }
+
+    .studioMonitorGrid {
+        display: grid;
+        grid-template-columns: 2fr minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.8rem;
+    }
+
+    .studioMonitorCard {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .studioMonitorCardHeading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 0.7rem;
+        color: #8ca7b4;
+        font-size: 0.75rem;
+    }
+
+    .studioMonitorCardHeading h2 {
+        margin: 0;
+        font-size: 0.67rem;
+        font-weight: 650;
+        letter-spacing: 0.025em;
+        text-transform: uppercase;
+    }
+
+    .studioMonitorValue {
+        font-size: 2.4rem;
+        font-weight: 650;
+        letter-spacing: -0.04em;
+    }
+
+    .studioMonitorValue small {
+        color: #8096a3;
+        font-size: 0.95rem;
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+    .studioMonitorValue.small {
+        font-size: 1.7rem;
+    }
+
+    .studioCpuCard {
+        min-height: 340px;
+        grid-row: 1 / 3;
+        grid-column: 1;
+    }
+
+    .studioNetworkCard {
+        min-height: 170px;
+        grid-column: 2 / 4;
+    }
+
+    .studioMemoryCard,
+    .studioStreamsCard {
+        min-height: 180px;
+    }
+
+    .studioMetricChart {
+        position: relative;
+        min-height: 45px;
+        flex: 1;
+        margin-top: 0.7rem;
+    }
+
+    .studioMetricChart svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 45px;
+        overflow: visible;
+    }
+
+    .studioCpuCard .studioMetricChart {
+        min-height: 170px;
+    }
+
+    .studioChartGrid {
+        stroke: rgba(81, 133, 154, 0.2);
+        stroke-dasharray: 4 7;
+        stroke-width: 0.6px;
+    }
+
+    .studioChartSeries {
+        color: #1fc1df;
+        fill: currentcolor;
+    }
+
+    .studioChartSeries-incoming,
+    .studioChartSeries-memory {
+        color: #bf2545;
+    }
+
+    .studioChartLine {
+        fill: none;
+        stroke: currentcolor;
+        stroke-width: 1.8px;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .studioChartArea {
+        opacity: 0.25;
+    }
+
+    .studioChartEmpty {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        color: #8096a3;
+        font-size: 0.75rem;
+    }
+
+    .studioChartScale,
+    .studioChartFooter,
+    .studioMonitorNote,
+    .studioMonitorLegend {
+        color: #8ba5b2;
+        font-size: 0.73rem;
+        line-height: 1.5;
+    }
+
+    .studioChartFooter {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .studioMonitorLegend {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.7rem 0 0;
+    }
+
+    .studioMonitorLegend i {
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #1fc1df;
+        border-radius: 50%;
+    }
+
+    .studioNetworkValues {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem 2rem;
+    }
+
+    .studioNetworkValues span,
+    .studioNetworkValues strong {
+        display: block;
+    }
+
+    .studioNetworkValues span {
+        color: #8ba5b2;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+    }
+
+    .studioNetworkValues strong {
+        color: #bf2545;
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+    }
+
+    .studioNetworkValues small {
+        font-size: 0.9em;
+    }
+
+    .studioMonitorNote {
+        margin: 0.25rem 0;
+        text-decoration: none;
+    }
+
+    .studioMonitorStatus {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-top: auto;
+        font-size: 0.75rem;
+    }
+
+    .studioStorageCard {
+        min-height: 210px;
+    }
+
+    .studioStorageVolumes {
+        display: grid;
+        flex: 1;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .studioStorageVolume {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+    }
+
+    .studioStorageVolumeHeading {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .studioStorageVolumeHeading > div {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        align-content: start;
+        gap: 0.35rem;
+    }
+
+    .studioStorageVolumeHeading span {
+        padding: 0.15rem 0.35rem;
+        background: #17252c;
+        border-radius: 0.2rem;
+        font-size: 0.65rem;
+    }
+
+    .studioStorageVolumeHeading strong {
+        text-align: right;
+    }
+
+    .studioNetworkValues > div + div strong {
+        color: #1fc1df;
+    }
+
+    .studioStorageVolumeHeading small {
+        display: block;
+        color: #8ba5b2;
+        font-size: 0.7rem;
+        font-weight: 400;
+    }
+
+    .studioStorageVolume p {
+        margin: 0.6rem 0 1.5rem;
+        color: #8ba5b2;
+        font-size: 0.75rem;
+        overflow-wrap: anywhere;
+    }
+
+    .studioStorageVolume progress {
+        width: 100%;
+        height: 0.4rem;
+        margin-top: auto;
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        appearance: none;
+        background: #1a272e;
+        border: 0;
+        border-radius: 1rem;
+    }
+
+    .studioStorageVolume progress::-webkit-progress-bar {
+        background: #1a272e;
+    }
+
+    .studioStorageVolume progress::-webkit-progress-value {
+        background: #03bd8f;
+        border-radius: 1rem;
+    }
+
+    .studioStorageVolume progress::-moz-progress-bar {
+        background: #03bd8f;
+        border-radius: 1rem;
+    }
+
+    .studioDashboardScope {
+        margin: 0;
+        color: #8ba5b2;
+        font-size: 0.72rem;
+    }
+
+    .studioDashboardWarning {
+        color: #f1b9c4;
+        font-size: 0.85rem;
+    }
+
+    .studioDashboardLegacy {
+        margin-top: 3rem;
+    }
+
+    .studioDashboardLegacy > h2 {
+        margin: 0 0 1.5rem;
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 1100px) {
+        .studioMonitorGrid {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+
+        .studioCpuCard {
+            min-height: 280px;
+            grid-row: auto;
+            grid-column: 1 / 3;
+        }
+
+        .studioNetworkCard {
+            grid-column: 1 / 3;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .studioMonitorGrid,
+        .studioStorageVolumes {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .studioCpuCard,
+        .studioNetworkCard {
+            grid-column: 1;
+        }
+    }
+}

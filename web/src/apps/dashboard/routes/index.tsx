@@ -10,6 +10,8 @@ import ConfirmDialog from 'components/ConfirmDialog';
 import Page from 'components/Page';
 import { useApi } from 'hooks/useApi';
 import globalize from 'lib/globalize';
+import { useUserTheme } from 'hooks/useUserTheme';
+import StudioDashboardHealth from 'components/studio/StudioDashboardHealth';
 
 import ServerPathWidget from '../components/widgets/ServerPathWidget';
 import ServerInfoWidget from '../components/widgets/ServerInfoWidget';
@@ -25,6 +27,8 @@ import ItemCountsWidget from '../components/widgets/ItemCountsWidget';
 
 export const Component = () => {
     const { api } = useApi();
+    const { theme } = useUserTheme();
+    const isStudio = theme === 'studio';
     const [ isRestartConfirmDialogOpen, setIsRestartConfirmDialogOpen ] = useState(false);
     const [ isShutdownConfirmDialogOpen, setIsShutdownConfirmDialogOpen ] = useState(false);
     const startTask = useStartTask();
@@ -84,8 +88,8 @@ export const Component = () => {
     return (
         <Page
             id='dashboardPage'
-            title={globalize.translate('TabDashboard')}
-            className='mainAnimatedPage type-interior'
+            title={isStudio ? 'Dashboard' : globalize.translate('TabDashboard')}
+            className={`mainAnimatedPage type-interior${isStudio ? ' studioUnifiedDashboard' : ''}`}
         >
             <ConfirmDialog
                 open={isRestartConfirmDialogOpen}
@@ -106,30 +110,34 @@ export const Component = () => {
                 confirmButtonColor='error'
             />
             <Box className='content-primary studioDashboardOverview'>
-                <Grid container spacing={3} className='studioDashboardGrid'>
-                    <Grid item xs={12} md={7} lg={7} xl={6}>
-                        <Stack spacing={3}>
-                            <ServerInfoWidget
-                                onScanLibrariesClick={onScanLibraries}
-                                onRestartClick={promptRestart}
-                                onShutdownClick={promptShutdown}
-                                isScanning={librariesTask?.State !== TaskState.Idle}
-                            />
-                            <ItemCountsWidget />
-                            <RunningTasksWidget tasks={tasks} />
-                            <DevicesWidget />
-                        </Stack>
+                {isStudio && <StudioDashboardHealth />}
+                <section className={isStudio ? 'studioDashboardLegacy' : undefined} aria-label='Servidor y actividad'>
+                    {isStudio && <h2>Servidor y actividad</h2>}
+                    <Grid container spacing={3} className='studioDashboardGrid'>
+                        <Grid item xs={12} md={7} lg={7} xl={6}>
+                            <Stack spacing={3}>
+                                <ServerInfoWidget
+                                    onScanLibrariesClick={onScanLibraries}
+                                    onRestartClick={promptRestart}
+                                    onShutdownClick={promptShutdown}
+                                    isScanning={librariesTask?.State !== TaskState.Idle}
+                                />
+                                <ItemCountsWidget />
+                                <RunningTasksWidget tasks={tasks} />
+                                <DevicesWidget />
+                            </Stack>
+                        </Grid>
+                        <Grid item xs={12} md={5} lg={5} xl={3}>
+                            <ActivityLogWidget />
+                        </Grid>
+                        <Grid item xs={12} md={6} lg={12} xl={3}>
+                            <Stack spacing={3}>
+                                <AlertsLogWidget />
+                                <ServerPathWidget />
+                            </Stack>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={5} lg={5} xl={3}>
-                        <ActivityLogWidget />
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={12} xl={3}>
-                        <Stack spacing={3}>
-                            <AlertsLogWidget />
-                            <ServerPathWidget />
-                        </Stack>
-                    </Grid>
-                </Grid>
+                </section>
             </Box>
         </Page>
     );

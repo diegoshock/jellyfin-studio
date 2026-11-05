@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import './studioPages.scss';
 
 const settings = [
-    ['Actividad', '/dashboard/activity'],
-    ['Salud del servidor', '/dashboard/health'],
+    ['Dashboard · salud · actividad · dispositivos', '/dashboard'],
     ['Bibliotecas · carpetas · escanear', '/dashboard/libraries'],
     ['Metadatos · idiomas · proveedores', '/dashboard/libraries/metadata'],
     ['Usuarios · permisos · acceso', '/dashboard/users'],
@@ -18,7 +17,6 @@ const settings = [
     ['Copias de seguridad', '/dashboard/backups'],
     ['Registros · errores', '/dashboard/logs'],
     ['General · nombre del servidor', '/dashboard/settings'],
-    ['Dispositivos', '/dashboard/devices'],
     ['Avatar · idiomas · reproducción', '/studio/preferences'],
     ['Canales por género', '/studio/live'],
     ['Asistente de configuración', '/studio/setup/library']

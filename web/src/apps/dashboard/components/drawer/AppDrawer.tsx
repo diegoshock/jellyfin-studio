@@ -29,7 +29,6 @@ const AppDrawer: FC<ResponsiveDrawerProps> = ({ open = false, onClose, onOpen })
                         </ListItem>
                     </List>
                     <StudioSettingsSearch />
-                    <ListItemLink to='/dashboard/health'>Salud del servidor</ListItemLink>
                     <ListItemLink to='/studio/setup/library'>Asistente de configuración</ListItemLink>
                     <ServerDrawerSection />
                     <DevicesDrawerSection />

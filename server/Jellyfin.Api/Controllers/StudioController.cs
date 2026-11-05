@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using MediaBrowser.Common.Api;
@@ -31,6 +32,7 @@ public class StudioController : BaseJellyfinApiController
         await Task.Delay(250, cancellationToken).ConfigureAwait(false);
         process.Refresh();
         var cpu = Math.Clamp((process.TotalProcessorTime - before).TotalMilliseconds / timer.Elapsed.TotalMilliseconds / Environment.ProcessorCount * 100, 0, 100);
+        var network = GetNetworkCounters();
         return new OkObjectResult(new
         {
             CpuPercent = Math.Round(cpu, 1),
@@ -38,7 +40,38 @@ public class StudioController : BaseJellyfinApiController
             MemoryLimitBytes = GC.GetGCMemoryInfo().TotalAvailableMemoryBytes,
             ProcessorCount = Environment.ProcessorCount,
             Scope = "JellyfinProcess",
+            NetworkReceivedBytes = network.Received,
+            NetworkSentBytes = network.Sent,
+            NetworkScope = "VisibleInterfaces",
             SampledAt = DateTimeOffset.UtcNow
         });
+    }
+
+    private static (long? Received, long? Sent) GetNetworkCounters()
+    {
+        try
+        {
+            long received = 0;
+            long sent = 0;
+            var found = false;
+            foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (adapter.OperationalStatus != OperationalStatus.Up || adapter.NetworkInterfaceType == NetworkInterfaceType.Loopback)
+                {
+                    continue;
+                }
+
+                var statistics = adapter.GetIPStatistics();
+                received += statistics.BytesReceived;
+                sent += statistics.BytesSent;
+                found = true;
+            }
+
+            return found ? (received, sent) : (null, null);
+        }
+        catch (Exception exception) when (exception is NetworkInformationException or PlatformNotSupportedException)
+        {
+            return (null, null);
+        }
     }
 }

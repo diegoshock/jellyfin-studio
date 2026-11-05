@@ -8,10 +8,7 @@ const groups = [
     {
         title: 'Vista general',
         links: [
-            ['Panel', '/dashboard', 'dashboard'],
-            ['Salud del servidor', '/dashboard/health', 'favorite'],
-            ['Actividad', '/dashboard/activity', 'history'],
-            ['Dispositivos', '/dashboard/devices', 'devices']
+            ['Dashboard', '/dashboard', 'dashboard']
         ]
     },
     {
@@ -75,7 +72,7 @@ export default function StudioAdminDrawer() {
                         <ListItemLink
                             key={path}
                             to={path}
-                            selected={pathname === path || (path !== '/dashboard' && pathname.startsWith(path + '/'))}
+                            selected={pathname === path || (path === '/dashboard' ? ['/dashboard/activity', '/dashboard/devices', '/dashboard/health'].includes(pathname) : pathname.startsWith(path + '/'))}
                         >
                             <span className='material-icons' aria-hidden='true'>
                                 {icon}
