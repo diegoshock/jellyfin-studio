@@ -1,0 +1,246 @@
+.studioMovieSummaryHost,
+.studioMovieExtraDetails {
+    display: none;
+}
+
+html[data-theme="studio"] .itemDetailPage.studioMovieDetail {
+    .studioMovieSummaryHost,
+    .studioMovieExtraDetails {
+        display: block;
+    }
+
+    .infoWrapper,
+    .detailLogo,
+    .trackSelections,
+    .studioMovieExtraDetails .tagline,
+    .studioMovieExtraDetails .overview,
+    .studioMovieExtraDetails .overview-controls,
+    .studioMovieExtraDetails .itemGenres {
+        display: none !important;
+    }
+
+    .itemBackdrop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: max(38rem, 75vh);
+        background-attachment: scroll;
+        mask-image: linear-gradient(#000 40%, transparent);
+    }
+
+    .detailPageWrapperContainer {
+        padding-top: clamp(6rem, 14vh, 9rem);
+    }
+
+    .detailPagePrimaryContainer {
+        display: grid;
+        width: calc(100% - 8vw);
+        max-width: 1680px;
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 1.5rem 2rem;
+        padding: 0;
+        margin: 0 auto 3rem;
+        background: transparent;
+    }
+
+    .detailRibbon {
+        display: contents;
+    }
+
+    .detailPagePrimaryContainer > .detailImageContainer {
+        grid-row: 1 / 3;
+        grid-column: 1;
+    }
+
+    .detailImageContainer .card {
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        float: none;
+    }
+
+    .studioMovieSummaryHost {
+        min-width: 0;
+        grid-row: 1;
+        grid-column: 2;
+        align-self: end;
+    }
+
+    .mainDetailButtons {
+        display: flex;
+        flex-wrap: wrap;
+        grid-row: 2;
+        grid-column: 2;
+        align-self: start;
+        gap: 0.6rem;
+        margin: 0;
+    }
+
+    .detailButton {
+        box-sizing: border-box;
+        min-height: 3.4rem;
+        order: 5;
+        padding: 0 !important;
+        margin: 0;
+        background: rgba(25, 39, 46, 0.7);
+        border: 1px solid rgba(220, 240, 247, 0.18);
+        border-radius: 0.8rem;
+    }
+
+    .detailButton-content {
+        box-sizing: border-box;
+        display: flex;
+        min-height: 3.4rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .detailButton-icon {
+        font-size: 1.25rem;
+    }
+
+    .btnPlay { order: 0; }
+    .btnReplay { order: 1; }
+    .btnPlaystate { order: 2; }
+    .btnPlayTrailer { order: 3; }
+    .btnUserRating { order: 4; }
+    .btnMoreCommands { order: 6; }
+
+    .btnUserRating,
+    .btnMoreCommands {
+        width: 3.4rem;
+        min-width: 3.4rem;
+    }
+
+    .detailButton-content::after {
+        content: attr(data-label);
+    }
+
+    .studioMovieExtraDetails {
+        max-width: 1680px;
+        padding: 1rem 0;
+        margin: 1rem 4vw 2rem;
+        border-top: 1px solid rgba(220, 240, 247, 0.15);
+    }
+
+    .studioMovieExtraDetails summary {
+        padding: 0.6rem 0;
+        color: #9fb6c1;
+        cursor: pointer;
+    }
+
+    .studioMovieExtraDetails .detailPagePrimaryContent {
+        padding: 1rem 0;
+    }
+}
+
+.studioMovieSummary {
+    max-width: 1000px;
+    color: #ecf6fa;
+
+    h1 {
+        margin: 0 0 0.7rem;
+        font-size: clamp(1.8rem, 3vw, 3.2rem);
+        font-weight: 750;
+        letter-spacing: -0.045em;
+        line-height: 1.12;
+        overflow-wrap: anywhere;
+    }
+}
+
+.studioMovieTagline {
+    margin: 0 0 1.1rem;
+    color: #93acb9;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.studioMovieRatings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+
+    &:empty {
+        display: none;
+    }
+
+    > span {
+        padding: 0.45rem 0.7rem;
+        background: rgba(15, 27, 34, 0.6);
+        border: 1px solid rgba(220, 240, 247, 0.15);
+        border-radius: 0.6rem;
+    }
+
+    strong {
+        margin-left: 0.4rem;
+        color: #79d7ad;
+    }
+}
+
+.studioMovieFacts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+.studioMovieBadge {
+    padding: 0.15rem 0.45rem;
+    background: rgba(8, 17, 23, 0.65);
+    border: 1px solid rgba(220, 240, 247, 0.2);
+    border-radius: 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 650;
+}
+
+.studioMovieSynopsis {
+    display: -webkit-box;
+    margin: 1.3rem 0 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-height: 1.65;
+
+    &.expanded {
+        display: block;
+    }
+}
+
+.studioMovieExpand {
+    padding: 0.4rem 0;
+    color: #b9d1df;
+    font: inherit;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+@media (max-width: 700px) {
+    html[data-theme="studio"] .itemDetailPage.studioMovieDetail {
+        .detailPageWrapperContainer {
+            padding-top: 2rem;
+        }
+
+        .detailPagePrimaryContainer {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.2rem;
+        }
+
+        .detailPagePrimaryContainer > .detailImageContainer {
+            display: none;
+        }
+
+        .studioMovieSummaryHost,
+        .mainDetailButtons {
+            grid-column: 1;
+        }
+    }
+}

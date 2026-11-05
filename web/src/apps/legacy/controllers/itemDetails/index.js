@@ -22,6 +22,8 @@ import layoutManager from 'components/layoutManager';
 import listView from 'components/listview/listview';
 import loading from 'components/loading/loading';
 import StudioSaga from 'components/studio/StudioSaga';
+import StudioMovieDetails from 'components/studio/StudioMovieDetails';
+import { movieDuration } from 'components/studio/moviePresentation';
 import ItemDetailsMetadataList from 'components/itemDetails/ItemDetailsMetadataList';
 import { playbackManager } from 'components/playback/playbackmanager';
 import { appRouter } from 'components/router/appRouter';
@@ -580,6 +582,11 @@ function reloadFromItem(instance, page, params, item, user) {
     renderName(item, page.querySelector('.nameContainer'), params.context);
     renderDetails(page, instance, item, apiClient, params.context);
     renderTrackSelections(page, instance, item);
+    page.classList.toggle('studioMovieDetail', item.Type === BaseItemKind.Movie);
+    const summaryHost = page.querySelector('.studioMovieSummaryHost');
+    if (summaryHost && item.Type === BaseItemKind.Movie) {
+        instance._unmount.push(renderComponent(StudioMovieDetails, { item, page }, summaryHost));
+    }
 
     renderSeriesTimerEditor(page, item, apiClient, user);
     renderTimerEditor(page, item, apiClient, user);
@@ -590,7 +597,10 @@ function reloadFromItem(instance, page, params, item, user) {
     if (document.documentElement.dataset.theme === 'studio') {
         page.querySelectorAll('.btnPlay, .btnReplay, .btnPlayTrailer, .btnPlaystate').forEach(button => {
             button.classList.add('studioLabeledAction');
-            button.querySelector('.detailButton-content')?.setAttribute('data-label', button.title);
+            const remaining = item.Type === BaseItemKind.Movie && button.classList.contains('btnPlay') && item.UserData?.PlaybackPositionTicks ?
+                movieDuration(item.RunTimeTicks - item.UserData.PlaybackPositionTicks) : undefined;
+            const label = remaining ? button.title + ' · ' + remaining : button.title;
+            button.querySelector('.detailButton-content')?.setAttribute('data-label', label);
         });
     }
 
