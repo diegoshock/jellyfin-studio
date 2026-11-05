@@ -1,0 +1,511 @@
+.studioLivePage,
+.studioLiveSettings {
+    color: #eaf5f6;
+
+    button,
+    input,
+    select {
+        box-sizing: border-box;
+        color: inherit;
+        font: inherit;
+    }
+
+    button {
+        padding: 0.55rem 0.8rem;
+        cursor: pointer;
+        background: rgba(225, 242, 247, 0.06);
+        border: 1px solid rgba(145, 186, 198, 0.18);
+        border-radius: 0.6rem;
+    }
+
+    :where(button):disabled {
+        cursor: default;
+        opacity: 0.5;
+    }
+
+    :where(button):hover,
+    :where(button):focus-visible {
+        background: rgba(225, 242, 247, 0.12);
+    }
+
+    :where(input:not([type="checkbox"])),
+    select {
+        min-width: 0;
+        padding: 0.7rem 0.9rem;
+        background: #09151a;
+        border: 1px solid rgba(145, 186, 198, 0.25);
+        border-radius: 0.6rem;
+    }
+
+    a {
+        color: #ccebf0;
+    }
+
+    p,
+    small {
+        color: #8ca7b4;
+        line-height: 1.6;
+    }
+
+    h1,
+    h2 {
+        letter-spacing: -0.04em;
+    }
+}
+
+.studioLivePage {
+    min-height: 100svh;
+    padding-bottom: 3rem;
+    background: #000e13;
+}
+
+.studioLiveHero {
+    position: relative;
+    display: flex;
+    min-height: 22rem;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.studioLiveHero > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.studioLiveHero::after {
+    position: absolute;
+    background: linear-gradient(90deg, #000e13 0%, rgba(0, 14, 19, 0.83) 30%, rgba(0, 14, 19, 0.05) 80%), linear-gradient(0deg, #000e13, transparent 70%);
+    content: "";
+    inset: 0;
+}
+
+.studioLiveHeroContent {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 5rem 4.3% 1rem;
+}
+
+.studioLiveHero h1 {
+    max-width: 55rem;
+    margin: 0.6rem 0;
+    font-size: clamp(1.7rem, 3vw, 2.7rem);
+}
+
+.studioLiveChannelLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.studioLiveProgress,
+.studioLiveHeroActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0.8rem 0;
+    font-size: 0.8rem;
+}
+
+.studioLiveProgress progress {
+    width: 14rem;
+    height: 0.25rem;
+    overflow: hidden;
+    appearance: none;
+    background: #233137;
+    border: 0;
+    border-radius: 1rem;
+}
+
+.studioLiveProgress progress::-webkit-progress-bar {
+    background: #233137;
+}
+
+.studioLiveProgress progress::-webkit-progress-value {
+    background: #a72245;
+}
+
+.studioLiveProgress progress::-moz-progress-bar {
+    background: #a72245;
+}
+
+.studioLiveGuideSection {
+    padding: 0 4.3%;
+}
+
+.studioLiveToolbar,
+.studioLiveTabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.studioLiveToolbar {
+    margin-bottom: 1.2rem;
+}
+
+.studioLiveTabs {
+    padding: 0.2rem;
+    border: 1px solid rgba(145, 186, 198, 0.22);
+    border-radius: 2rem;
+}
+
+.studioLiveTabs a {
+    padding: 0.55rem 0.8rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.studioLiveTabs button {
+    background: transparent;
+    border: 0;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+}
+
+.studioLiveTabs button[aria-pressed="true"] {
+    background: rgba(225, 242, 247, 0.14);
+}
+
+.studioLiveToolbar input {
+    width: 19rem;
+    max-width: 100%;
+    margin-left: auto;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+}
+
+.studioLiveConfigure {
+    font-size: 0.8rem;
+}
+
+.studioLiveCategories,
+.studioLiveSuggestions,
+:where(.studioLiveConfigHeader > div:last-child) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.studioLiveCategories {
+    margin-bottom: 1rem;
+}
+
+.studioLiveCategories > div {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.studioLiveGuideScroll {
+    position: relative;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.studioLiveTimeAxis,
+.studioLiveGuideRow {
+    display: grid;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: 0.4rem;
+}
+
+.studioLiveTimeAxis {
+    margin-bottom: 0.6rem;
+}
+
+.studioLiveTimeAxis > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.studioLiveTimeAxis button {
+    background: transparent;
+    border: 0;
+    font-size: 0.85rem;
+}
+
+.studioLiveTimeAxis > div:last-child {
+    position: relative;
+    min-height: 2.8rem;
+}
+
+.studioLiveTimeAxis span,
+.studioLiveTimeAxis b {
+    position: absolute;
+    top: 0.8rem;
+    color: #7e9ba7;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.studioLiveTimeAxis b {
+    z-index: 2;
+    padding: 0.2rem 0.4rem;
+    margin-top: -0.2rem;
+    color: #ec6581;
+    background: #25121a;
+    border: 1px solid #682237;
+    border-radius: 0.5rem;
+    transform: translateX(-50%);
+}
+
+.studioLiveGuideRow {
+    min-height: 5rem;
+    margin-bottom: 0.4rem;
+}
+
+.studioLiveGuideChannel {
+    position: sticky;
+    z-index: 3;
+    left: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-content: center;
+    gap: 0.3rem 0.7rem;
+    text-align: left;
+    background: #09151a !important;
+}
+
+.studioLiveGuideChannel span {
+    grid-row: span 2;
+    align-self: center;
+    padding: 0.5rem;
+    color: #a6bbc3;
+    background: #182b35;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+.studioLiveGuideChannel strong {
+    font-size: 0.85rem;
+}
+
+.studioLiveGuideChannel small {
+    font-size: 0.7rem;
+}
+
+.studioLiveGuidePrograms {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(145, 186, 198, 0.18);
+    border-radius: 0.7rem;
+}
+
+.studioLiveGuidePrograms > button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-align: left;
+    border-width: 0 1px 0 0;
+    border-radius: 0;
+}
+
+.studioLiveGuidePrograms strong,
+.studioLiveGuidePrograms small {
+    display: block;
+    overflow: hidden;
+    font-size: 0.85rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.studioLiveGuidePrograms small {
+    font-size: 0.75rem;
+}
+
+.studioLiveGuidePrograms .onAir {
+    background: #162227;
+    box-shadow: inset 0 -3px #a72245;
+}
+
+.studioLiveGuidePrograms > p {
+    padding: 0 1rem;
+    font-size: 0.8rem;
+}
+
+.studioLiveEmpty {
+    padding: 2rem 0;
+}
+
+.studioLiveConfigHeader,
+.studioLiveConfigCard {
+    box-sizing: border-box;
+    padding: 1.2rem;
+    background: #080f12;
+    border: 1px solid rgba(145, 186, 198, 0.16);
+    border-radius: 0.9rem;
+}
+
+.studioLiveConfigHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.studioLiveConfigHeader h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.studioLiveConfigHeader p,
+.studioLiveConfigCard p {
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+.studioLiveSettingsLayout {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 0.8rem;
+}
+
+.studioLiveSettingsLayout nav {
+    display: flex;
+    align-self: start;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.studioLiveSettingsLayout nav button {
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+    border: 0;
+    text-align: left;
+}
+
+.studioLiveSettingsLayout nav [aria-current="page"] {
+    background: #122025;
+}
+
+.studioLiveSettingsLayout nav :where(span) {
+    color: #8ca7b4;
+    font-size: 0.8rem;
+}
+
+.studioLiveSettingsBody {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.studioLiveConfigCard h2 {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    letter-spacing: normal;
+}
+
+.studioLiveConfigEmpty {
+    padding: 2.5rem 1rem;
+    color: #7e9ba7;
+    text-align: center;
+}
+
+.studioLiveSuggestion,
+.studioLiveSourceRow,
+.studioChannelEditor footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.studioLiveSourceRow {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(145, 186, 198, 0.1);
+    font-size: 0.85rem;
+}
+
+.studioLiveSourceRow span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.studioLiveSettings label {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+}
+
+.studioLiveSettings label:has([type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+}
+
+.studioChannelEditorFields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 1rem;
+}
+
+.studioLiveDraftNotice {
+    color: #dab56f;
+}
+
+@media (max-width: 1000px) {
+    .studioLiveSettingsLayout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    .studioLiveSettingsLayout nav {
+        flex-flow: row wrap;
+    }
+
+    .studioChannelEditorFields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .studioLiveTimeAxis,
+    .studioLiveGuideRow {
+        grid-template-columns: 10rem minmax(0, 1fr);
+    }
+
+    .studioLiveGuideChannel {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .studioLiveHero {
+        min-height: 26rem;
+    }
+
+    .studioLiveHeroContent {
+        padding-top: 8rem;
+    }
+
+    .studioLiveToolbar input {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .studioChannelEditorFields {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .studioLiveConfigHeader,
+    .studioLiveConfigCard {
+        padding: 1rem;
+    }
+}

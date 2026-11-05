@@ -16,6 +16,7 @@ const groups = [
         links: [
             ['Bibliotecas', '/dashboard/libraries', 'video_library'],
             ['Metadatos', '/metadata', 'edit'],
+            ['Canales', '/dashboard/channels', 'live_tv'],
             ['TV en directo', '/dashboard/livetv', 'live_tv'],
             ['Grabaciones', '/dashboard/livetv/recordings', 'dvr']
         ]

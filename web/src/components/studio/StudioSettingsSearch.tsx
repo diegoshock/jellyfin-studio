@@ -18,7 +18,7 @@ const settings = [
     ['Registros · errores', '/dashboard/logs'],
     ['General · nombre del servidor', '/dashboard/settings'],
     ['Avatar · idiomas · reproducción', '/studio/preferences'],
-    ['Canales por género', '/studio/live'],
+    ['Canales · guía · géneros · maratones · fuentes', '/dashboard/channels'],
     ['Asistente de configuración', '/studio/setup/library']
 ];
 

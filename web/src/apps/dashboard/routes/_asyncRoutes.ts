@@ -3,6 +3,7 @@ import { AppType } from 'constants/appType';
 
 export const ASYNC_ADMIN_ROUTES: AsyncRoute[] = [
     { path: '', type: AppType.Dashboard },
+    { path: 'channels', type: AppType.Dashboard },
     { path: 'health', type: AppType.Dashboard },
     { path: 'activity', type: AppType.Dashboard },
     { path: 'backups', type: AppType.Dashboard },

@@ -27,12 +27,7 @@ export function channelSchedule(items: BaseItemDto[], now = Date.now(), seriesOr
     let start = now - offset;
     return Array.from({ length: Math.min(playable.length + 1, 4) }, (_, n) => {
         const item = playable[(index + n) % playable.length];
-        const entry = {
-            item,
-            start,
-            end: start + item.RunTimeTicks! / 10000,
-            offsetTicks: n === 0 ? Math.floor(offset * 10000) : 0
-        };
+        const entry = { item, start, end: start + item.RunTimeTicks! / 10000, offsetTicks: n === 0 ? Math.floor(offset * 10000) : 0 };
         start = entry.end;
         return entry;
     });
@@ -45,4 +40,27 @@ export function parseChannels(value?: string | null): string[] {
     } catch {
         return [];
     }
+}
+
+/** Covers a guide window with repeated real catalog items, including channels with a single title. */
+export function channelGuide(items: BaseItemDto[], from: number, to: number, seriesOrder = false) {
+    const ordered = channelItems(items, seriesOrder);
+    const first = channelSchedule(ordered, from, seriesOrder)[0];
+    if (!first || to <= from) return [];
+    const result = [];
+    let start = first.start;
+    let index = ordered.findIndex(item => item.Id === first.item.Id);
+    // Bound tiny or malformed media durations without hanging the guide.
+    while (start < to && result.length < 500) {
+        const item = ordered[index % ordered.length];
+        const end = start + item.RunTimeTicks! / 10000;
+        result.push({ item, start, end, offsetTicks: Math.max(0, Math.floor((from - start) * 10000)) });
+        start = end;
+        index++;
+    }
+    return result;
+}
+
+export function legacyLineup(values: string[]) {
+    return values.map((value, index) => ({ Id: `legacy-${index}`, Number: 401 + index, Name: value.startsWith('series:') ? 'Maratón de series' : value, Kind: (value.startsWith('series:') ? 'series' : 'genre') as 'series' | 'genre', Value: value.startsWith('series:') ? value.slice(7) : value, LibraryId: '', Category: value.startsWith('series:') ? 'Series' : value, Enabled: true }));
 }
