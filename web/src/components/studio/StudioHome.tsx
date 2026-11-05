@@ -2,7 +2,6 @@ import { BaseItemKind } from '@jellyfin/sdk/lib/generated-client/models/base-ite
 import { ImageType } from '@jellyfin/sdk/lib/generated-client/models/image-type';
 import { ItemFields } from '@jellyfin/sdk/lib/generated-client/models/item-fields';
 import { ItemSortBy } from '@jellyfin/sdk/lib/generated-client/models/item-sort-by';
-import { SortOrder } from '@jellyfin/sdk/lib/generated-client/models/sort-order';
 import { getLibraryApi } from '@jellyfin/sdk/lib/utils/api/library-api';
 import { getImageApi } from '@jellyfin/sdk/lib/utils/api/image-api';
 import { useQuery } from '@tanstack/react-query';
@@ -12,31 +11,41 @@ import { useApi } from '../../hooks/useApi';
 import { appRouter } from '../router/appRouter';
 import globalize from '../../lib/globalize';
 
+import StudioMovieTitle from './StudioMovieTitle';
+
 import './studioHome.scss';
 
-/** A library-backed, manually controlled spotlight above the user's existing sections. */
+const isDocumentHidden = () => {
+    // eslint-disable-next-line compat/compat -- Feature detection keeps older clients usable without Page Visibility.
+    return 'visibilityState' in document && document.visibilityState === 'hidden';
+};
+
+/** A rotating, library-backed spotlight above the user's existing sections. */
 export default function StudioHome() {
     const { api, user } = useApi();
     const [ selected, setSelected ] = useState(0);
     const [ imageFailed, setImageFailed ] = useState(false);
+    const [ autoRotate, setAutoRotate ] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const [ interacting, setInteracting ] = useState(false);
+    const [ hidden, setHidden ] = useState(isDocumentHidden);
     const [ playing, setPlaying ] = useState(false);
     const [ playError, setPlayError ] = useState(false);
     const { data, isPending, isError, refetch } = useQuery({
         queryKey: [ 'StudioSpotlight', api?.basePath, user?.Id ],
         enabled: !!api && !!user?.Id,
-        staleTime: 60000,
+        staleTime: 0,
+        refetchOnMount: 'always',
         refetchOnWindowFocus: false,
         queryFn: async ({ signal }) => {
             const response = await getLibraryApi(api!).getItems({
                 userId: user!.Id!,
                 recursive: true,
                 includeItemTypes: [ BaseItemKind.Movie ],
-                sortBy: [ ItemSortBy.DateCreated ],
-                sortOrder: [ SortOrder.Descending ],
+                sortBy: [ ItemSortBy.Random ],
                 fields: [ ItemFields.Overview, ItemFields.Genres ],
-                limit: 6,
+                limit: 8,
                 imageTypeLimit: 1,
-                enableImageTypes: [ ImageType.Backdrop, ImageType.Primary ]
+                enableImageTypes: [ ImageType.Backdrop, ImageType.Primary, ImageType.Logo ]
             }, { signal });
             return response.data.Items || [];
         }
@@ -50,6 +59,34 @@ export default function StudioHome() {
         setPlayError(false);
     }, [ item?.Id ]);
 
+    useEffect(() => {
+        const updateVisibility = () => setHidden(isDocumentHidden());
+        document.addEventListener('visibilitychange', updateVisibility);
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const updateMotion = () => setAutoRotate(!motion.matches);
+        if (motion.addEventListener) motion.addEventListener('change', updateMotion);
+        else motion.addListener(updateMotion);
+        return () => {
+            document.removeEventListener('visibilitychange', updateVisibility);
+            if (motion.removeEventListener) motion.removeEventListener('change', updateMotion);
+            else motion.removeListener(updateMotion);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!autoRotate || interacting || hidden || playing || items.length < 2) return;
+        const timer = window.setTimeout(() => setSelected((activeIndex + 1) % items.length), 10000);
+        return () => window.clearTimeout(timer);
+    }, [activeIndex, autoRotate, hidden, interacting, items.length, playing]);
+
+    const pauseInteraction = useCallback(() => setInteracting(true), []);
+    const endInteraction = useCallback((event: React.FocusEvent<HTMLElement>) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false);
+    }, []);
+    const endPointer = useCallback((event: React.PointerEvent<HTMLElement>) => {
+        if (!event.currentTarget.contains(document.activeElement)) setInteracting(false);
+    }, []);
+    const toggleRotation = useCallback(() => setAutoRotate(value => !value), []);
     const retry = useCallback(() => {
         refetch().catch(console.error);
     }, [ refetch ]);
@@ -104,16 +141,16 @@ export default function StudioHome() {
     const details = appRouter.getRouteUrl({ ...item, ServerId: user?.ServerId });
 
     return (
-        <section className='studioHero' aria-label={globalize.translate('HeaderLatestMedia')}>
+        <section className='studioHero' aria-label={globalize.translate('Movies')} onFocusCapture={pauseInteraction} onBlurCapture={endInteraction}>
             {imageUrl && !imageFailed && (
                 <img className='studioHero-art' src={imageUrl} alt='' onError={failImage} />
             )}
             <div className='studioHero-content'>
                 <p className='studioHero-eyebrow'>
                     <span className='studioHero-marker' aria-hidden='true' />
-                    {globalize.translate('HeaderLatestMedia')}
+                    {globalize.translate('Movies')}
                 </p>
-                <h1 className='studioHero-title'>{item.Name}</h1>
+                <StudioMovieTitle key={item.Id} id={item.Id} name={item.Name} logoTag={item.ImageTags?.Logo} />
                 <div className='studioHero-metadata'>
                     {!!item.CommunityRating && <span className='studioHero-rating'>★ {item.CommunityRating.toFixed(1)}</span>}
                     {!!item.ProductionYear && <span>{item.ProductionYear}</span>}
@@ -121,7 +158,7 @@ export default function StudioHome() {
                     {!!item.Genres?.length && <span>{item.Genres.slice(0, 2).join(' · ')}</span>}
                 </div>
                 {item.Overview && <p className='studioHero-overview'>{item.Overview}</p>}
-                <div className='studioHero-actions'>
+                <div className='studioHero-actions' onPointerEnter={pauseInteraction} onPointerLeave={endPointer}>
                     <button className='studioAction studioAction-primary' disabled={playing} onClick={play}>
                         <span className='material-icons' aria-hidden='true'>play_arrow</span>
                         {globalize.translate(item.UserData?.PlaybackPositionTicks ? 'ButtonResume' : 'Play')}
@@ -134,7 +171,10 @@ export default function StudioHome() {
                 {playError && <p className='studioHero-playError' role='alert'>{globalize.translate('HeaderPlaybackError')}: <a href={details}>{globalize.translate('ItemDetails')}</a></p>}
             </div>
             {items.length > 1 && (
-                <div className='studioHero-carousel' aria-label={globalize.translate('HeaderLatestMedia')}>
+                <div className='studioHero-carousel' aria-label={globalize.translate('Movies')} onPointerEnter={pauseInteraction} onPointerLeave={endPointer}>
+                    <button className='studioHero-arrow' aria-label={globalize.translate(autoRotate ? 'ButtonPause' : 'Play')} aria-pressed={autoRotate} onClick={toggleRotation}>
+                        <span className='material-icons' aria-hidden='true'>{autoRotate ? 'pause' : 'play_arrow'}</span>
+                    </button>
                     <button className='studioHero-arrow' aria-label={globalize.translate('Previous')} onClick={previous}>
                         <span className='material-icons' aria-hidden='true'>chevron_left</span>
                     </button>

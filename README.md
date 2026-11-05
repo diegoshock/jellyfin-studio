@@ -7,9 +7,11 @@ superficies oscuras, acento rojo granate, navegación en cápsulas y carátulas
 con bordes suaves, tomando las capturas de tofa.tv como referencia visual.
 El resto de los temas oficiales sigue disponible en los ajustes de pantalla.
 
-El inicio Studio incluye una portada de borde a borde para películas recientes, con fondo difuminado, sinopsis,
-metadatos y acciones de reproducción/reanudación y detalle. El carrusel cambia
-manualmente, las bibliotecas usan accesos compactos y los carriles originales
+El inicio Studio incluye una portada de borde a borde para películas de la biblioteca, con fondo difuminado, sinopsis,
+metadatos y acciones de reproducción/reanudación y detalle. El carrusel usa una selección aleatoria y avanza automáticamente cada 10 segundos,
+con pausa y navegación manual; muestra logos de la biblioteca o los busca en los
+proveedores del servidor cuando faltan. [Detalles y validación](docs/studio-home.md).
+Las bibliotecas usan accesos compactos y los carriles originales
 de continuar viendo y novedades conservan su configuración. El contenido se
 consulta con los permisos del usuario conectado: no se inventan recomendaciones
 ni carátulas. Una biblioteca sin películas mantiene el estado original de Jellyfin.

@@ -75,6 +75,22 @@
     overflow-wrap: anywhere;
 }
 
+.studioHero-titleWithLogo {
+    width: min(100%, 30rem);
+    line-height: 0;
+}
+
+.studioHero-logo {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 11rem;
+    object-fit: contain;
+    object-position: left center;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+}
+
 .studioHero-metadata {
     display: flex;
     flex-wrap: wrap;
@@ -314,6 +330,14 @@
 
     .studioHero::after {
         background: linear-gradient(0deg, #090b0e 5%, rgba(9, 11, 14, 0.75) 60%, rgba(9, 11, 14, 0.1));
+    }
+
+    .studioHero-pages {
+        gap: 0.15rem;
+    }
+
+    .studioHero-page {
+        width: 1rem;
     }
 
     .studioHero-carousel {
