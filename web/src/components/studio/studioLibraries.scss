@@ -1,0 +1,276 @@
+html[data-theme="studio"] .studioLibrariesPage {
+    .studioLibrariesOverview {
+        display: flex;
+        min-height: calc(100svh - var(--studio-header-height, 76px) - 2.5rem);
+        flex-direction: column;
+        gap: 0.8rem;
+        color: #eaf5f6;
+    }
+
+    .studioLibrariesHeader,
+    .studioLibraryMetrics article,
+    .studioLibraryTableWrap {
+        background: #080f12;
+        border: 1px solid rgba(145, 186, 198, 0.16);
+        border-radius: 0.9rem;
+    }
+
+    .studioLibrariesHeader {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+    }
+
+    .studioLibrariesOverview p,
+    .studioLibraryLegend,
+    .studioLibraryTable small,
+    .studioLibraryTable thead {
+        color: #8ca7b4;
+        font-size: 0.8rem;
+    }
+
+    .studioLibrariesOverview p {
+        margin: 0.5rem 0 0;
+    }
+
+    .studioLibrariesOverview button {
+        padding: 0.55rem 0.8rem;
+        color: #eaf5f6;
+        font: inherit;
+        font-size: 0.85rem;
+        cursor: pointer;
+        background: rgba(225, 242, 247, 0.07);
+        border: 1px solid rgba(225, 242, 247, 0.14);
+        border-radius: 0.6rem;
+    }
+
+    .studioLibrariesOverview button:hover,
+    .studioLibrariesOverview button:focus-visible {
+        background: rgba(225, 242, 247, 0.16);
+    }
+
+    .studioLibrariesOverview button:disabled {
+        cursor: default;
+        opacity: 0.5;
+    }
+
+    .studioLibrariesOverview .studioLibraryAdd {
+        color: #ef7894;
+        background: rgba(146, 31, 65, 0.22);
+        border-color: #98354e;
+    }
+
+    .studioLibraryMetrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+    }
+
+    .studioLibraryMetrics article {
+        position: relative;
+        min-width: 0;
+        padding: 1rem;
+    }
+
+    .studioLibraryMetrics h2 {
+        margin: 0 0 0.6rem;
+        color: #8ca7b4;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+    }
+
+    .studioLibraryMetrics strong {
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+    }
+
+    .studioLibraryMetrics progress {
+        width: 100%;
+        height: 0.35rem;
+        margin-top: 0.6rem;
+        overflow: hidden;
+        appearance: none;
+        background: #1a272e;
+        border: 0;
+        border-radius: 1rem;
+    }
+
+    .studioLibraryMetrics progress::-webkit-progress-bar {
+        background: #1a272e;
+    }
+
+    .studioLibraryMetrics progress::-webkit-progress-value {
+        background: #71818a;
+        border-radius: 1rem;
+    }
+
+    .studioLibraryMetrics progress::-moz-progress-bar {
+        background: #71818a;
+        border-radius: 1rem;
+    }
+
+    .studioLibraryDaily {
+        display: flex;
+        height: 1.6rem;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 0.2rem;
+        margin-top: 0.5rem;
+    }
+
+    .studioLibraryDaily span {
+        width: 0.65rem;
+        background: #96304e;
+        border-radius: 0.1rem;
+    }
+
+    .studioLibraryDistribution {
+        margin: 0.2rem 0 0.5rem;
+    }
+
+    .studioLibraryBar {
+        display: flex;
+        height: 0.7rem;
+        overflow: hidden;
+        background: #18262d;
+        border-radius: 1rem;
+    }
+
+    .studioLibraryLegend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .studioLibraryLegend i {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        margin-right: 0.35rem;
+        border-radius: 0.2rem;
+    }
+
+    .studioLibraryTableWrap {
+        position: relative;
+        overflow-x: auto;
+    }
+
+    .studioLibraryTable {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .studioLibraryTable th {
+        font-weight: normal;
+    }
+
+    .studioLibraryTable th,
+    .studioLibraryTable td {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(145, 186, 198, 0.1);
+    }
+
+    .studioLibraryTable td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    .studioLibraryTable td:nth-child(4) {
+        color: #8ca7b4;
+        font-size: 0.8rem;
+    }
+
+    .studioLibraryTable tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .studioLibraryTable small {
+        display: block;
+        margin-top: 0.3rem;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    .studioLibraryName {
+        display: flex;
+        min-width: 10rem;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .studioLibraryName strong {
+        overflow-wrap: anywhere;
+    }
+
+    .studioLibraryIcon {
+        display: grid;
+        width: 2.8rem;
+        height: 2.8rem;
+        flex-shrink: 0;
+        place-items: center;
+        background: rgba(91, 134, 164, 0.12);
+        border-radius: 0.8rem;
+        font-size: 1.4rem;
+    }
+
+    .studioLibraryActions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .studioLibrariesOverview .studioLibraryWarning {
+        color: #e8b547;
+    }
+
+    .studioLibraryOptionsLink {
+        align-self: flex-end;
+        margin-top: 0.4rem;
+        color: #bceaf1;
+        font-size: 0.85rem;
+    }
+
+    .studioLibraryEmpty {
+        padding: 1rem;
+    }
+
+    .studioLibrarySrOnly {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .studioLibraryOptions {
+        padding-top: 2rem;
+        scroll-margin-top: calc(var(--studio-header-height, 76px) + 1rem);
+    }
+
+    @media (max-width: 1100px) {
+        .studioLibraryMetrics {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 600px) {
+        .studioLibraryTable {
+            min-width: 47rem;
+        }
+
+        .studioLibraryMetrics article {
+            padding: 0.8rem;
+        }
+    }
+}

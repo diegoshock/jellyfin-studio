@@ -7,6 +7,8 @@ import { QUERY_KEY } from './useVirtualFolders';
 
 /** Invalidates queries related to libraries/virtual folders. */
 export const invalidateVirtualFolders = (user?: UserDto, virtualFolder?: VirtualFolderInfo) => {
+    void queryClient.invalidateQueries({ queryKey: ['StudioLibrarySummary'] });
+
     // Admin API - Virtual Folders
     void queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
 
