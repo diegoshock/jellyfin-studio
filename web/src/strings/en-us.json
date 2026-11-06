@@ -1945,5 +1945,6 @@
     "LabelPlayerSizes": "Player sizes",
     "LabelPlaybackQuality": "Frame dropped / corrupted",
     "AudioLanguages": "Audio languages",
-    "SubtitleLanguages": "Subtitle languages"
+    "SubtitleLanguages": "Subtitle languages",
+    "SelectMetadataItem": "Select a library or an item in the folder tree to edit its metadata."
 }

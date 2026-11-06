@@ -3,6 +3,7 @@ import { getCurrentItemId, setCurrentItemId } from 'scripts/editorsidebar';
 
 function reload(context, itemId) {
     loading.show();
+    context.classList.toggle('studioMetadataHasSelection', !!itemId);
 
     if (itemId) {
         import('components/metadataEditor/metadataEditor').then(({ default: metadataEditor }) => {
@@ -20,6 +21,12 @@ export default function (view) {
     });
 
     setCurrentItemId(null);
+
+    view.querySelector('.studioMetadataBrowse').addEventListener('click', () => {
+        const tree = view.querySelector('.editPageSidebar');
+        tree.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        tree.querySelector('.jstree-clicked, .jstree-anchor')?.focus({ preventScroll: true });
+    });
 
     view.querySelector('.libraryTree').addEventListener('itemclicked', function (event) {
         const data = event.detail;
